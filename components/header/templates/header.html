@@ -13,7 +13,21 @@
 
 				<!-- menu start -->
 				<nav class="main-menu">
+{#                    {% with messages = get_flashed_messages(with_categories=True) %}#}
+{#                                {% for category, message in messages %}#}
+{#                                    <div class="flash {{category}}">{{message}}</div>#}
+{#                                {% endfor %}#}
+{#                            {% endwith%}#}
 					<ul>
+                            {% with messages = get_flashed_messages(with_categories=True) %}
+                                {% for category, message in messages %}
+                                    <li>
+                                        <div class="flash {{category}}">{{message}}</div>
+                                    </li>
+                                {% endfor %}
+                            {% endwith%}
+
+
 						<li {% if request.path =='/' %} class="current-list-item" {% endif %}><a href="/"><i class="fas fa-home"></i></a>
 						</li>
 						<li {% if request.path =='/about' %} class="current-list-item" {% endif %}><a href="/about">Our Story</a></li>
@@ -22,7 +36,15 @@
 						<li {% if request.path =='/menu' %} class="current-list-item" {% endif %}><a href="/menu">Menu</a>
 						</li>
 						<li{% if request.path =='/contact_us' %} class="current-list-item" {% endif %}><a href="/contact_us">Contact</a></li>
-						<li>
+						{% if session.username%}
+                            <li>
+                                <a href="">{{ session.username}}</a>
+                            </li>
+                            <li>
+                                <a href="/logout">logout</a>
+                            </li>
+                        {% endif %}
+                        <li>
 							<div class="header-icons">
 								<a {% if request.path =='/cart' %}class="current-list-item" {% endif %} href="/cart"><i class="fas fa-shopping-cart"></i></a>
 								<!-- need to put in the mobile as well!!!!  -->
@@ -31,7 +53,11 @@
 						</li>
 					</ul>
 				</nav>
-				<a class="mobile-show person-bar-icon" onclick="open_login();return false;"><i class="fas fa-male" ></i></a>
+{#            !!!!!!!!!!need to change the responsive menu#}
+                {% if session.username%}
+                {% else %}
+                    <a class="mobile-show person-bar-icon" onclick="open_login();return false;"><i class="fas fa-male" ></i></a>
+                {% endif %}
 				<div class="mobile-menu"></div>
 			</div>
 		</div>

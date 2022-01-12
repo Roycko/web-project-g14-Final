@@ -3,9 +3,14 @@
 	<div class="popup-content">
 		<a class="close" href="" onclick="close_login();return false;"><i class="fas fa-window-close"  ></i></a>
 		<h3>Login</h3>
-		<input type="text" placeholder="User Name">
-		<input type="text" placeholder="Password">
-		<a href="#" class="login" >Login</a>
-		<p>Need an account? <a href="/signup" class="href"> sign-up here</a> <p>
+
+        <form method="post" action="/login" id="login_form" >
+{#                            <lable  for="user_name"></lable>#}
+                            <input type="text" id="user_name" name="user_name" minlength="6" maxlength="20" placeholder="User Name">
+{#                            <lable for="pass"></lable>#}
+                            <input type="passward" id="pass" name='pass' minlength="6" maxlength="16" placeholder="Password"><br> <br>
+                            <input type="submit" class="login" id="login_form"><br>
+        </form>
+        <p>Need an account? <a href="/signup" class="href"> sign-up here</a> <p>
 	</div>
 </div>

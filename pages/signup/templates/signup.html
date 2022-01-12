@@ -41,24 +41,31 @@
 						<form method="post" action="/insert_user" id="signup" onSubmit="return inputValidity()">
                             <lable  for="first_name">First Name:   </lable>
                             <!-- id connect to the for field -->
-                            <input type="text" id="first_name" name="first_name" minlength="6" maxlength="20"><br> <br>
+                            <input type="text" id="first_name" name="first_name" minlength="3" maxlength="20"><br> <br>
                              <lable  for="last_name">last Name:   </lable>
                             <!-- id connect to the for field -->
-                            <input type="text" id="last_name" name="last_name" minlength="6" maxlength="20"><br> <br>
+                            <input type="text" id="last_name" name="last_name" minlength="3" maxlength="20"><br> <br>
                             <lable for="user_name">User Name: </lable>
-                            <input type="text" id="user_name" name="user_name" minlength="8" maxlength="20" placeholder="Mandatory Field"><br> <br>
+                            <input type="text" id="user_name" name="user_name" minlength="6" maxlength="20" placeholder="Mandatory Field"><br> <br>
 {#                            <lable for="phone">Phone number: </lable>#}
 {#                            <input type="tel" id='phone' name='phon_number' minlength="8" maxlength="20"><br> <br>#}
                             <lable for="email"> Email Address: </lable>
                             <input type="email" id='email' name='email'><br> <br>
                             <lable for="birth_date"> Birth Date: </lable>
                             <input type="date" id='birth_date' name='birth_date'><br> <br>
-                            <lable for="Pass"> Passward: </lable>
+                            <lable for="pass"> Passward: </lable>
                             <input type="passward" id="pass" name='pass' minlength="6" maxlength="16" placeholder="Mandatory Field"><br> <br>
                             <input type="submit" id="form1"  onclick="return inputValidity()"><br>
                             <p id="errorName"></p>
 							<p id="errorPass"></p>
 							<p id="mandatory"></p>
+                            {% with messages = get_flashed_messages(with_categories=True) %}
+                                {% for category, message in messages %}
+                                    <li>
+                                        <div class="flash {{category}}">{{message}}</div>
+                                    </li>
+                                {% endfor %}
+                            {% endwith%}
                         </form>
 					</div>
 				</div>
