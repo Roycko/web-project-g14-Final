@@ -4,6 +4,7 @@
 {% block js %}
     {{ super() }}
     <script src="{{url_for('cart.static', filename='js/count_cart.js')}}"></script>
+    <script src="{{url_for('cart.static', filename='js/cart.js')}}"></script>
 {% endblock %}
 {% block css %}
     {{ super() }}
@@ -41,70 +42,96 @@
 			</div>
 
 			<div class="col-lg-5">
-				<div class="product-cart-container">
-					<div class="product-cart-card">
-							<div class="product-cart-image">
-								<a><img src="/static/img/products/cheesecake1.jpg" alt=""></a>
-							</div>
-							<div class="product-cart-description">
-								<h3>Raspberries Cheese Cake</h3>
-								<p class=""><span>1/pcs <br></span> <p id="unitPrice1"> 5000$ </p></p>
-							</div>
-							<div class="product-cart-change">
-								<div class="product-cart-quantity buttons_added">
-									<input type="button" value="-" class="minus" onclick="m1()" >
-									<input type="number"  value="1"  class="input-text qty text" id="n1" size="4" readonly="readonly">
-									<input type="button" value="+" class="plus" onclick="p1()">
-								</div>
-								<div>
-									<button class="transparent" onclick="remove(this)"><i class="fas fa-trash-alt fa-lg"></i></button>
-								</div>
-							</div>
-					</div>
-				</div>
-
-				<div class="product-cart-container">
-					<div class="product-cart-card">
-						<div class="product-cart-image">
-							<a href=""><img src="/static/img/products/cheesecake4.jpg" alt=""></a>
-						</div>
-						<div class="product-cart-description">
-							<h3>Raspberries Cheese Cake</h3>
-							<p class=""><span>1/pcs <br></span> <p id="unitPrice2">  1755$ </p></p>
-						</div>
-						<div class="product-cart-change">
-							<div class="product-cart-quantity buttons_added">
-								<input type="button" value="-" class="minus" onclick="m2()">
-								<input type="number" value= 1 min= 0 class="input-text qty text" id="n2" size="4" readonly="readonly">
-								<input type="button" value="+" class="plus" onclick="p2()">
-							</div>
-							<div>
-								<button class="transparent" onclick="remove(this)" ><i class="fas fa-trash-alt fa-lg"></i></button>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="product-cart-container">
-					<div class="product-cart-card">
-						<div class="product-cart-image">
-							<a href=""><img src="/static/img/products/cheesecake2.jpg" alt=""></a>
-						</div>
-						<div class="product-cart-description">
-							<h3>Raspberries Cheese Cake</h3>
-							<p class=""><span>1/pcs <br></span> <p id="unitPrice3">  2500$ </p></p>
-						</div>
-						<div class="product-cart-change">
-							<div class="product-cart-quantity buttons_added">
-								<input type="button" value="-" class="minus" onclick="m3()">
-								<input type="number" value="1" min="0" class="input-text qty text" id="n3" size="4" pattern="" inputmode="">
-								<input type="button" value="+" class="plus" onclick="p3()" >
-							</div>
-							<div>
-								<button class="transparent" onclick="remove(this)"><i class="fas fa-trash-alt fa-lg"></i></button>
-							</div>
-						</div>
-					</div>
-				</div>
+                {% for product in products %}
+                    <div class="product-cart-container">
+                        <div class="product-cart-card">
+                            <div class="product-cart-image">
+                                <a><img src="{{ product.image_src }}" alt="" width="160" height="126"></a>
+                            </div>
+                            <div class="product-cart-description">
+                            <h3>{{ product.name }}</h3>
+                            <p class=""><span>1/pcs <br></span> <p id="unitPrice1"> {{ product.price }}$ </p></p>
+                            </div>
+                            <div class="product-cart-change">
+                                <div class="product-cart-quantity buttons_added">
+                                    <input type="button" value="-" class="minus" id="minus" >
+                                    <input type="number"  value="1"  class="input-text qty text" id="input" size="4" readonly="readonly">
+                                    <input type="button" value="+" class="plus" id="plus" >
+                                </div>
+                                <div>
+                                    <button class="transparent" onclick="remove(this)"><i class="fas fa-trash-alt fa-lg"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{#				<div class="product-cart-container">#}
+{#					<div class="product-cart-card">#}
+{#							<div class="product-cart-image">#}
+{#								<a><img src="/static/img/products/cheesecake1.jpg" alt=""></a>#}
+{#							</div>#}
+{#							<div class="product-cart-description">#}
+{#								<h3>Raspberries Cheese Cake</h3>#}
+{#								<p class=""><span>1/pcs <br></span> <p id="unitPrice1"> 5000$ </p></p>#}
+{#							</div>#}
+{#							<div class="product-cart-change">#}
+{#								<div class="product-cart-quantity buttons_added">#}
+{#									<input type="button" value="-" class="minus" onclick="m1()" >#}
+{#									<input type="number"  value="1"  class="input-text qty text" id="n1" size="4" readonly="readonly">#}
+{#									<input type="button" value="+" class="plus" onclick="p1()">#}
+{#								</div>#}
+{#								<div>#}
+{#									<button class="transparent" onclick="remove(this)"><i class="fas fa-trash-alt fa-lg"></i></button>#}
+{#								</div>#}
+{#							</div>#}
+{#					</div>#}
+{#				</div>#}
+{##}
+{#				<div class="product-cart-container">#}
+{#					<div class="product-cart-card">#}
+{#						<div class="product-cart-image">#}
+{#							<a href=""><img src="/static/img/products/cheesecake4.jpg" alt=""></a>#}
+{#						</div>#}
+{#						<div class="product-cart-description">#}
+{#							<h3>Raspberries Cheese Cake</h3>#}
+{#							<p class=""><span>1/pcs <br></span> <p id="unitPrice2">  1755$ </p></p>#}
+{#						</div>#}
+{#						<div class="product-cart-change">#}
+{#							<div class="product-cart-quantity buttons_added">#}
+{#								<input type="button" value="-" class="minus" onclick="m2()">#}
+{#								<input type="number" value= 1 min= 0 class="input-text qty text" id="n2" size="4" readonly="readonly">#}
+{#								<input type="button" value="+" class="plus" onclick="p2()">#}
+{#							</div>#}
+{#							<div>#}
+{#								<button class="transparent" onclick="remove(this)" ><i class="fas fa-trash-alt fa-lg"></i></button>#}
+{#							</div>#}
+{#						</div>#}
+{#					</div>#}
+{#				</div>#}
+{#				<div class="product-cart-container">#}
+{#					<div class="product-cart-card">#}
+{#						<div class="product-cart-image">#}
+{#							<a href=""><img src="/static/img/products/cheesecake2.jpg" alt=""></a>#}
+{#						</div>#}
+{#						<div class="product-cart-description">#}
+{#							<h3>Raspberries Cheese Cake</h3>#}
+{#							<p class=""><span>1/pcs <br></span> <p id="unitPrice3">  2500$ </p></p>#}
+{#						</div>#}
+{#						<div class="product-cart-change">#}
+{#							<div class="product-cart-quantity buttons_added">#}
+{#								<input type="button" value="-" class="minus" onclick="m3()">#}
+{#								<input type="number" value="1" min="0" class="input-text qty text" id="n3" size="4" pattern="" inputmode="">#}
+{#								<input type="button" value="+" class="plus" onclick="p3()" >#}
+{#							</div>#}
+{#							<div>#}
+{#								<button class="transparent" onclick="remove(this)"><i class="fas fa-trash-alt fa-lg"></i></button>#}
+{#							</div>#}
+{#						</div>#}
+{#					</div>#}
+{#				</div>#}
 				<div class="product-cart-container">
 					<div class="product-cart-summary">
 						<div class="finalPrice"> The total price is:  </div>

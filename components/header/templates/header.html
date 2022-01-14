@@ -28,7 +28,7 @@
                             {% endwith%}
 
 
-						<li {% if request.path =='/' %} class="current-list-item" {% endif %}><a href="/"><i class="fas fa-home"></i></a>
+						<li {% if request.path =='/' or request.path =='/home' %} class="current-list-item" {% endif %}><a href="/"><i class="fas fa-home"></i></a>
 						</li>
 						<li {% if request.path =='/about' %} class="current-list-item" {% endif %}><a href="/about">Our Story</a></li>
 						<li {% if request.path =='/events' %} class="current-list-item" {% endif %}><a href="/events">Events</a>
@@ -38,16 +38,20 @@
 						<li{% if request.path =='/contact_us' %} class="current-list-item" {% endif %}><a href="/contact_us">Contact</a></li>
 						{% if session.username%}
                             <li>
-                                <a href="">{{ session.username}}</a>
+                                <a href="" class="logged-in">{{ session.username}}</a>
                             </li>
                             <li>
-                                <a href="/logout">logout</a>
+                                <a href="/logout" class="logged-in">logout</a>
                             </li>
                         {% endif %}
                         <li>
 							<div class="header-icons">
-								<a {% if request.path =='/cart' %}class="current-list-item" {% endif %} href="/cart"><i class="fas fa-shopping-cart"></i></a>
-								<!-- need to put in the mobile as well!!!!  -->
+                                {% if session.username %}
+								    <a {% if request.path =='/cart' %}class="current-list-item" {% endif %} href="/cart"><i class="fas fa-shopping-cart"></i></a>
+								{% else %}
+                                    <a onclick="open_login();return false;" ><i class="fas fa-shopping-cart"></i></a>
+                                {% endif %}
+                                <!-- need to put in the mobile as well!!!!  -->
 
 							</div>
 						</li>

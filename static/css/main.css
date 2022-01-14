@@ -511,6 +511,11 @@ nav.main-menu li a {
   transition: 0.3s;
 }
 
+nav.main-menu ul li a.logged-in{
+  color: #F28123;
+  text-shadow:1px 1px #2d2d2d;
+}
+
 ul.sub-menu li:last-child {
   float: none !important;
 }

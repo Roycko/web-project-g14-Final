@@ -1,4 +1,6 @@
 
+
+
 function p1(){
         document.getElementById("n1").value++;
     tPrice();
@@ -43,6 +45,7 @@ function p9(){
 function m1(){
     if (document.getElementById("n1").value > 0)
         document.getElementById("n1").value --;
+    console.log("hi2");
     tPrice();
 }
 function m2(){

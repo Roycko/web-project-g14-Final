@@ -5,3 +5,9 @@
         jQuery(".loader").fadeOut(1000);
     });
 }(jQuery));
+
+function addToCart(button){
+    button.innerHTML = "Added to Cart";
+    button.style.cursor = "initial";
+    button.style.backgroundColor = "Grey";
+}

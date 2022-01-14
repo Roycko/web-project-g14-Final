@@ -16,11 +16,7 @@
 
     {% endblock %}
 
-    {% block js %}
-        <script src="/static/js/jquery-1.11.3.min.js"></script>
-        <script src="/static/js/login.js"></script>
-        <script src="/static/js/main.js"></script>
-    {% endblock %}
+
     <title>{% block title %} {% endblock %}</title>
     {% include 'popSign.html' %}
 </head>
@@ -29,5 +25,10 @@
     {% include 'header.html' %}
     {% block content %} {% endblock %}
     {% include 'footer.html' %}
+    {% block js %}
+        <script src="/static/js/jquery-1.11.3.min.js"></script>
+        <script src="/static/js/login.js"></script>
+        <script src="/static/js/main.js"></script>
+    {% endblock %}
 </body>
 </html>
