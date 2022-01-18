@@ -22,15 +22,15 @@ def index():
 def menu_search_func():
     query = "select * from Products ;"
     # name = request.form['name']
-    if request.form.get("vegan") != None:
+    if request.args.get("vegan") != None:
              query = "select * from Products where is_vegan=1 ;"
-    if request.form.get("gluten") != None:
+    if request.args.get("gluten") != None:
              query = "select * from Products where is_gluten_free=1;"
-    if request.form.get("birthday") != None:
+    if request.args.get("birthday") != None:
              query = "select * from Products where is_birthday_cake=1 ;"
-    if request.form.get("top") != None:
+    if request.args.get("top") != None:
             query = "select * from Products where is_top_seller=1 ;"
-    if request.form.get("all") != None:
+    if request.args.get("all") != None:
             query = "select * from Products;"
     # if request.form.get("vegan") != None:
     #     is_vegan = '1'

@@ -93,5 +93,13 @@ max_occupancy int,
 constraint fk_events_existing FOREIGN KEY (event_id) references Events(event_id)
 );
 
+CREATE TABLE web_project_g14.contact_us (
+contact_id int auto_increment primary key  ,
+first_name varchar(20),
+last_name varchar(20),
+email_address varchar(30),
+message varchar(255)
+);
+
 
 

@@ -54,9 +54,9 @@
                             </div>
                             <div class="product-cart-change">
                                 <div class="product-cart-quantity buttons_added">
-                                    <input type="button" value="-" class="minus" id="minus" >
-                                    <input type="number"  value="1"  class="input-text qty text" id="input" size="4" readonly="readonly">
-                                    <input type="button" value="+" class="plus" id="plus" >
+                                    <input type="button" value="-" class="minus" id="{{ product.product_id }}" onclick="action(this.id,'minus',{{ product.price }})">
+                                    <input type="number"  value="1"  class="input-text qty text" id="input_{{ product.product_id }}" size="4" readonly="readonly">
+                                    <input type="button" value="+" class="plus" id="{{ product.product_id }}" onclick="action(this.id,'plus',{{ product.price }})">
                                 </div>
                                 <div>
                                     <button class="transparent" onclick="remove(this)"><i class="fas fa-trash-alt fa-lg"></i></button>

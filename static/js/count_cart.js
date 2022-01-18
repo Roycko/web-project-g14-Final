@@ -1,11 +1,3 @@
-/*
-var db = openDatabase("web_project_g14",1.0,"web_project_g14",65555);
-$function(){
-    $("#update").click(function()){
-
-    }
-}
-*/
 
 
 const minusButton = document.getElementById('minus');
@@ -26,7 +18,23 @@ plusButton.addEventListener('click', event => {
     const currentValue = Number(inputField.value) || 0;
     inputField.value = currentValue + 1;
 });
-
+function action(product_id,action,price){
+    var inputEl = document.getElementById('input_'+product_id);
+    if (action==='plus'){
+     inputEl.value= parseInt(inputEl.value)+1;
+    }
+    else{
+        if (parseInt(inputEl.value)>0){
+            inputEl.value= parseInt(inputEl.value)-1;
+        }
+    }
+    tPrice(parseInt(price),parseInt(inputEl.value));
+    console.log(product_id);
+}
+function tPrice(price,quantity){
+    finalPrice = Number(document.getElementById("totalPrice").value);
+    finalPrice += price*quantity;
+}
 // function tPrice() {
 //     pr1 = document.getElementById("unitPrice1").innerHTML.substring(0,document.getElementById("unitPrice1").innerHTML.length-2);
 //     pr2 = document.getElementById("unitPrice2").innerHTML.substring(0,document.getElementById("unitPrice2").innerHTML.length-2);
