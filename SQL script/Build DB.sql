@@ -71,9 +71,7 @@ event_dt datetime,
 place varchar(20),
 age_range varchar(20),
 image_src varchar(60),
-description varchar(400),
-user_id int,
-constraint fk_events_users FOREIGN KEY (user_id) references Users(user_id)-- for personal the owner, for existing_workshop enrool member
+description varchar(400)
 );
 
 CREATE TABLE web_project_g14.Personal_event (
@@ -99,6 +97,14 @@ first_name varchar(20),
 last_name varchar(20),
 email_address varchar(30),
 message varchar(255)
+);
+
+CREATE TABLE web_project_g14.users_in_events (
+event_id int,
+user_id int,
+constraint fk_users_event FOREIGN KEY (user_id) references Users(user_id),
+constraint fk_users_event_2 FOREIGN KEY (event_id) references Events(event_id),
+constraint pk_Carts primary key (event_id,user_id)
 );
 
 
