@@ -84,9 +84,9 @@
                             <h3>{{ product.name}}</h3>
                             <p class="product-price"><span>{{ product.num_of_pcs }}/pcs</span> 15$ </p>
                                 <div class="product-cart-quantity buttons_added">
-                            <input type="button" value="-" class="minus" onclick="m1()" >
-                            <input type="number"  value="1"  class="input-text qty text" id="n{{product.product_id  }}" size="4" readonly="readonly">
-                            <input type="button" value="+" class="plus" onclick="p1()"><br>
+                                    <input type="button" value="-" class="minus" id="{{ product.product_id }}" onclick="action(this.id,'minus',{{ product.price }})">
+                                    <input type="number"  value="1"  class="input-text qty text" id="input_{{ product.product_id }}" size="4" readonly="readonly">
+                                    <input type="button" value="+" class="plus" id="{{ product.product_id }}" onclick="action(this.id,'plus',{{ product.price }})">
                                 </div>
                             {% if session.username %}
                                 <a onclick="addToCart(this)" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>

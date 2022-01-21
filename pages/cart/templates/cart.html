@@ -42,105 +42,56 @@
 			</div>
 
 			<div class="col-lg-5">
-                {% for product in products %}
-                    <div class="product-cart-container">
-                        <div class="product-cart-card">
-                            <div class="product-cart-image">
-                                <a><img src="{{ product.image_src }}" alt="" width="160" height="126"></a>
-                            </div>
-                            <div class="product-cart-description">
-                            <h3>{{ product.name }}</h3>
-                            <p class=""><span>1/pcs <br></span> <p id="unitPrice1"> {{ product.price }}$ </p></p>
-                            </div>
-                            <div class="product-cart-change">
-                                <div class="product-cart-quantity buttons_added">
-                                    <input type="button" value="-" class="minus" id="{{ product.product_id }}" onclick="action(this.id,'minus',{{ product.price }})">
-                                    <input type="number"  value="1"  class="input-text qty text" id="input_{{ product.product_id }}" size="4" readonly="readonly">
-                                    <input type="button" value="+" class="plus" id="{{ product.product_id }}" onclick="action(this.id,'plus',{{ product.price }})">
+                {% if products|length == 0 %}
+                    <h3 class="text-center">Your Cart is Empty</h3>
+                    <h4 class="text-center">Visit Our <a href="/menu" class="orange-text text-center"> Menu </a>  </h4>
+                {% else %}
+                    <form action="/saveChanges" id="changes" method="post">
+                    {% for product in products %}
+                        <div class="product-cart-container">
+                            <div class="product-cart-card">
+                                <div class="product-cart-image">
+                                    <a><img src="{{ product.image_src }}" alt="" width="160" height="126"></a>
                                 </div>
-                                <div>
-                                    <button class="transparent" onclick="remove(this)"><i class="fas fa-trash-alt fa-lg"></i></button>
+                                <div class="product-cart-description">
+                                <h3>{{ product.name }}</h3>
+                                <p class=""><span>1/pcs <br></span> <p class="unitPrice"> {{ product.price }}$ </p></p>
+                                </div>
+                                <div class="product-cart-change">
+                                    <div class="product-cart-quantity buttons_added">
+                                            <input type="button" value="-" class="minus" id="{{ product.product_id }}" onclick="change(this.id,'minus',{{ product.price }})">
+                                            <input type="number" name ="{{ product.product_id }}" value="{{ product.quantity }}"  class="input-text qty text" id="input_{{ product.product_id }}" size="4" readonly="readonly">
+                                            <input type="button" value="+" class="plus" id="{{ product.product_id }}" onclick="change(this.id,'plus',{{ product.price }})">
+                                    </div>
+                                    <div>
+                                        <button class="transparent" onclick="remove(this)"><i class="fas fa-trash-alt fa-lg"></i></button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                {% endfor %}
+                    {% endfor %}
+                    </form>
+                {% endif %}
             </div>
         </div>
     </div>
-{#				<div class="product-cart-container">#}
-{#					<div class="product-cart-card">#}
-{#							<div class="product-cart-image">#}
-{#								<a><img src="/static/img/products/cheesecake1.jpg" alt=""></a>#}
-{#							</div>#}
-{#							<div class="product-cart-description">#}
-{#								<h3>Raspberries Cheese Cake</h3>#}
-{#								<p class=""><span>1/pcs <br></span> <p id="unitPrice1"> 5000$ </p></p>#}
-{#							</div>#}
-{#							<div class="product-cart-change">#}
-{#								<div class="product-cart-quantity buttons_added">#}
-{#									<input type="button" value="-" class="minus" onclick="m1()" >#}
-{#									<input type="number"  value="1"  class="input-text qty text" id="n1" size="4" readonly="readonly">#}
-{#									<input type="button" value="+" class="plus" onclick="p1()">#}
-{#								</div>#}
-{#								<div>#}
-{#									<button class="transparent" onclick="remove(this)"><i class="fas fa-trash-alt fa-lg"></i></button>#}
-{#								</div>#}
-{#							</div>#}
-{#					</div>#}
-{#				</div>#}
-{##}
-{#				<div class="product-cart-container">#}
-{#					<div class="product-cart-card">#}
-{#						<div class="product-cart-image">#}
-{#							<a href=""><img src="/static/img/products/cheesecake4.jpg" alt=""></a>#}
-{#						</div>#}
-{#						<div class="product-cart-description">#}
-{#							<h3>Raspberries Cheese Cake</h3>#}
-{#							<p class=""><span>1/pcs <br></span> <p id="unitPrice2">  1755$ </p></p>#}
-{#						</div>#}
-{#						<div class="product-cart-change">#}
-{#							<div class="product-cart-quantity buttons_added">#}
-{#								<input type="button" value="-" class="minus" onclick="m2()">#}
-{#								<input type="number" value= 1 min= 0 class="input-text qty text" id="n2" size="4" readonly="readonly">#}
-{#								<input type="button" value="+" class="plus" onclick="p2()">#}
-{#							</div>#}
-{#							<div>#}
-{#								<button class="transparent" onclick="remove(this)" ><i class="fas fa-trash-alt fa-lg"></i></button>#}
-{#							</div>#}
-{#						</div>#}
-{#					</div>#}
-{#				</div>#}
-{#				<div class="product-cart-container">#}
-{#					<div class="product-cart-card">#}
-{#						<div class="product-cart-image">#}
-{#							<a href=""><img src="/static/img/products/cheesecake2.jpg" alt=""></a>#}
-{#						</div>#}
-{#						<div class="product-cart-description">#}
-{#							<h3>Raspberries Cheese Cake</h3>#}
-{#							<p class=""><span>1/pcs <br></span> <p id="unitPrice3">  2500$ </p></p>#}
-{#						</div>#}
-{#						<div class="product-cart-change">#}
-{#							<div class="product-cart-quantity buttons_added">#}
-{#								<input type="button" value="-" class="minus" onclick="m3()">#}
-{#								<input type="number" value="1" min="0" class="input-text qty text" id="n3" size="4" pattern="" inputmode="">#}
-{#								<input type="button" value="+" class="plus" onclick="p3()" >#}
-{#							</div>#}
-{#							<div>#}
-{#								<button class="transparent" onclick="remove(this)"><i class="fas fa-trash-alt fa-lg"></i></button>#}
-{#							</div>#}
-{#						</div>#}
-{#					</div>#}
-{#				</div>#}
-				<div class="product-cart-container">
-					<div class="product-cart-summary">
-						<div class="finalPrice"> The total price is:  </div>
-						<div id="totalPrice"> </div>
-						<div class="paymentProceed">
-								<a href="/payment" class="boxed-btn">Go To Payment</a>
-						</div>
-					</div>
-				</div>
+        <div class="product-cart-container">
+            <div class="product-cart-summary">
+                {% if products|length == 0 %}
+
+                {% else %}
+                    <div class="finalPrice"> The total price is:  </div>
+                    <div id="totalPrice"> </div>
+                    <div class="paymentProceed">
+{#                        <input type="submit" class="boxed-btn" id="saveChanges" value="Go To Payment" form="changes">#}
+{#                        <a href="/saveCart" class="boxed-btn">Save Changes</a>#}
+                        <a href="/payment" class="boxed-btn" id="goToPayment">Go To Payment</a><br>
+                        <input type="submit" class="boxed-btn" id="saveChanges" value="Save Changes" form="changes">
+
+                    </div>
+                {% endif %}
+            </div>
+        </div>
 			</div>
 		</div>
 	</div>

@@ -53,11 +53,11 @@
                         </div>
                         <h3>{{ product.name}}</h3>
                         <p class="product-price"><span>1/pcs</span> {{ product.price }}$ </p>
-                        {% if session.username %}
-                            <a onclick="addToCart(this)" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-                        {% else %}
-                            <a  onclick="open_login();return false;"  class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-                        {% endif %}
+{#                        {% if session.username %}#}
+                            <a  href="/menu" class="cart-btn"> Available in Menu</a>
+{#                        {% else %}#}
+{#                            <a  onclick="open_login();return false;"  class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>#}
+{#                        {% endif %}#}
                     </div>
                 </div>
                 {% endfor %}
@@ -115,7 +115,7 @@
 			</div>
 			<div class="row">
 				<div class="col-lg-5 text-center">
-					<a href="Menu.html" class="boxed-btn">More Products</a>
+					<a href="/events" class="boxed-btn">More Events</a>
 				</div>
 			</div>
 		</div>

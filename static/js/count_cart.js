@@ -1,40 +1,56 @@
 
-
-const minusButton = document.getElementById('minus');
-const plusButton = document.getElementById('plus');
-const inputField = document.getElementById('input');
-
-// window.onload = tPrice;
-minusButton.addEventListener('click', event => {
-    event.preventDefault();
-    const currentValue = Number(inputField.value) || 0;
-    if (currentValue >= 1) {
-        inputField.value = currentValue - 1;
-    }
-});
-
-plusButton.addEventListener('click', event => {
-    event.preventDefault();
-    const currentValue = Number(inputField.value) || 0;
-    inputField.value = currentValue + 1;
-});
-function action(product_id,action,price){
+var tp = 0;
+window.onload = onLoadtotalPrice;
+function change(product_id,action,price){
     var inputEl = document.getElementById('input_'+product_id);
     if (action==='plus'){
-     inputEl.value= parseInt(inputEl.value)+1;
+         inputEl.value= parseInt(inputEl.value)+1;
+         tPrice((price),(inputEl.value),action);
     }
     else{
-        if (parseInt(inputEl.value)>0){
+        if (parseInt(inputEl.value)>1){
             inputEl.value= parseInt(inputEl.value)-1;
+            tPrice((price),(inputEl.value),action);
         }
     }
-    tPrice(parseInt(price),parseInt(inputEl.value));
-    console.log(product_id);
 }
-function tPrice(price,quantity){
-    finalPrice = Number(document.getElementById("totalPrice").value);
-    finalPrice += price*quantity;
+function tPrice(price,quantity,action) {
+    if (action == "plus") {
+        tp += price;
+    }
+    else{
+        tp -= price;
+    }
+    document.getElementById('totalPrice').innerHTML = String(tp) +'$';
+    saveAvailable()
 }
+
+function onLoadtotalPrice(){
+    var total = 0;
+    document.getElementById("saveChanges").style.visibility="hidden";
+    var args = document.getElementsByClassName("input-text qty text");
+    var prices = document.getElementsByClassName("unitPrice");
+    for (var i=0; i<args.length; i++){
+        total += args[i].value * Number(prices[i].innerHTML.substring(0,prices[i].innerHTML.length-2));
+    }
+    document.getElementById('totalPrice').innerHTML = String(total)+'$';
+    tp = total;
+}
+function saveAvailable(){
+    document.getElementById("saveChanges").style.visibility="visible";
+    document.getElementById("goToPayment").innerHTML="Undo Changes";
+    document.getElementById("goToPayment").href="/cart";
+}
+
+function remove(card){
+    card.parentNode.parentNode.parentNode.remove();
+    onLoadtotalPrice()
+    saveAvailable()
+}
+    // console.log(price*quantity);
+    // finalPrice += price*quantity;
+    // finalPrice = Number(document.getElementById("totalPrice").value);
+
 // function tPrice() {
 //     pr1 = document.getElementById("unitPrice1").innerHTML.substring(0,document.getElementById("unitPrice1").innerHTML.length-2);
 //     pr2 = document.getElementById("unitPrice2").innerHTML.substring(0,document.getElementById("unitPrice2").innerHTML.length-2);
@@ -135,6 +151,4 @@ function tPrice(price,quantity){
 
 //
 //
-// function remove(card){
-//     card.parentNode.parentNode.parentNode.remove();
-// }
+
