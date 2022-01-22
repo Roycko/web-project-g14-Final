@@ -52,3 +52,4 @@ class User:
         args = (self.__email_address,self.__first_name,self.__last_name,self.__user_name,self.__password,self.__birth_date,self.__Registration_DT)
         affected_rows = dbManager.commit(query,args)
         return affected_rows ==1
+

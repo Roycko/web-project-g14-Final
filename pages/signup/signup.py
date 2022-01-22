@@ -41,6 +41,7 @@ def insert_user_func():
             newUser.registerUser()
             session['username'] = user_name
             session['user_id'] = newUser.getUserId()
+            session['email_address'] = newUser.getEmail()
             #######################################################################
             ########################## End New Code ###############################
             #######################################################################
@@ -78,6 +79,7 @@ def login_func():  # put application's code here
             for user in users:
                 session['username']=user[4]
                 session['user_id'] = user[0]
+                session['email_address'] = user[1]
             return redirect('/home')
         else:
             flask.flash(' login no success')
@@ -88,4 +90,5 @@ def login_func():  # put application's code here
 def logout_func():
     session['username']=''
     session['user_id']=''
+    session['email_address'] = ''
     return redirect('/home')

@@ -81,9 +81,18 @@ def removeProducts(products,cart):
     else:
         quary2 = f"delete from product_in_cart where product_id in {tuple(removed)} and user_id = {session['user_id']} and cart_id = {cart}"
     print(dbManager.commit(quary2))
-    # print(list(products))
 
-    # print(removed[0])
+def getUser(email):
+    query = f"select * from users where email_address='{email}'"
+    res = dbManager.fetch(query)
+    return res[0]
 
+def update_user(email,password, firstName, lastName):
+    if password !='':
+        query = f"UPDATE users SET password={password}, first_name='{firstName}', last_name='{lastName}' where email_address='{email}'"
+    else:
+        query = f"UPDATE users SET first_name='{firstName}', last_name='{lastName}' where email_address='{email}'"
+    affected_rows = dbManager.commit(query)
+    return affected_rows == 1
 
 
