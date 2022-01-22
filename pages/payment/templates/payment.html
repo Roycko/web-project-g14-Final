@@ -7,7 +7,7 @@
 {% endblock %}
 {% block css %}
     {{ super() }}
-    <link  href="{{url_for('payment.static', filename='css/payment.css')}}" rel="stylesheet">
+    <link  href="{{url_for('.static', filename='css/payment.css')}}" rel="stylesheet">
 {% endblock %}
 {% block content %}
 

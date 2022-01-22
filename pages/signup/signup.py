@@ -9,7 +9,7 @@ from utilities.entities.user import User
 from utilities.general import get_all_users
 
 # signup blueprint definition
-signup = Blueprint('signup', __name__, static_folder='signup', static_url_path='/static', template_folder='templates')
+signup = Blueprint('signup', __name__,static_folder='static',static_url_path='/pages/signup/static', template_folder='templates')
 title = 'Matamim | Sign Up'
 
 # Routes

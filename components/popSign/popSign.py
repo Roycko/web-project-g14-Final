@@ -4,6 +4,6 @@ from flask import request
 from interact_with_DB import interact_db
 
 # popSign blueprint definition
-popSign = Blueprint('popSign', __name__, static_folder='static', static_url_path='/popSign', template_folder='templates')
+popSign = Blueprint('popSign', __name__,static_folder='static',static_url_path='/pages/popSign/static', template_folder='templates')
 
 

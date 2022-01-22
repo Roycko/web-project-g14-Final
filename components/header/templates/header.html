@@ -13,11 +13,6 @@
 
 				<!-- menu start -->
 				<nav class="main-menu">
-{#                    {% with messages = get_flashed_messages(with_categories=True) %}#}
-{#                                {% for category, message in messages %}#}
-{#                                    <div class="flash {{category}}">{{message}}</div>#}
-{#                                {% endfor %}#}
-{#                            {% endwith%}#}
 					<ul>
                             {% with messages = get_flashed_messages(with_categories=True) %}
                                 {% for category, message in messages %}
@@ -38,7 +33,7 @@
 						<li{% if request.path =='/contact_us' %} class="current-list-item" {% endif %}><a href="/contact_us">Contact</a></li>
 						{% if session.username%}
                             <li>
-                                <a href="" class="logged-in">{{ session.username}}</a>
+                                <a href="/profile" class="logged-in">{{ session.username}}</a>
                             </li>
                             <li>
                                 <a href="/logout" class="logged-in">logout</a>

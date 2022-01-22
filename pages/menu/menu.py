@@ -7,7 +7,7 @@ import flask
 import math
 
 # menu blueprint definition
-menu = Blueprint('menu', __name__, static_folder='menu', static_url_path='/static', template_folder='templates')
+menu = Blueprint('menu', __name__,static_folder='static',static_url_path='/pages/menu/static', template_folder='templates')
 title = 'Matamim | Menu'
 
 # Routes

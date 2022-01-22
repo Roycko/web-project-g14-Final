@@ -855,16 +855,16 @@ input[type="submit"] {
 
 ----------------------------------------------------------------------------- */
 .event-bg-1 {
-  background-image: url(../img/Events/Chocolate1.jpg);
+  background-image: url(/pages/home/static/img/Chocolate1.jpg);
   background-position: center;
 }
 
 .event-bg-2 {
-  background-image: url(../img/Events/Event1.jpg);
+  background-image: url(/pages/home/static/img/Event1.jpg);
 }
 
 .event-bg-3 {
-  background-image: url(../img/Events/Waffle.jpg);
+  background-image: url(/pages/home/static/img/Waffle.jpg);
 }
 
 .event-bg {

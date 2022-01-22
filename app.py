@@ -47,6 +47,10 @@ app.register_blueprint(payment)
 from pages.signup.signup import signup
 app.register_blueprint(signup)
 
+## Profile
+from pages.profile.profile import profile
+app.register_blueprint(profile)
+
 
 ###### Components
 ## Header

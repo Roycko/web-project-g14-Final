@@ -3,7 +3,7 @@ import json
 from flask import Blueprint, render_template, redirect, url_for,jsonify
 from interact_with_DB import interact_db
 # home blueprint definition
-home = Blueprint('home', __name__, static_folder='home', static_url_path='/static', template_folder='templates')
+home = Blueprint('home', __name__,static_folder='static',static_url_path='/pages/home/static',template_folder='templates')
 title = 'Matamim | Home'
 
 # Routes

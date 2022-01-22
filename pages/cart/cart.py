@@ -5,7 +5,7 @@ from utilities.entities.product import *
 from utilities.entities.user import *
 import json
 # cart blueprint definition
-cart = Blueprint('cart', __name__, static_folder='cart', static_url_path='/static', template_folder='templates')
+cart = Blueprint('cart', __name__,static_folder='static',static_url_path='/pages/cart/static', template_folder='templates')
 title ='Matamim | Your Cart'
 
 # Routes
