@@ -100,3 +100,11 @@ def saveContactToDB(fname,lname,email,msg):
     affected_rows = dbManager.commit(query)
     return affected_rows ==1
 
+def getCartPrice():
+    cart = getCart()
+    fPrice =0
+    for row in cart:
+        price = row[5]*row[11]
+        fPrice +=price
+    finalPrice = fPrice
+    return finalPrice

@@ -7,14 +7,9 @@ title = 'Matamim | Complete your purchase'
 # Routes
 @payment.route('/payment')
 def index():
-    cart = getCart()
-    fPrice =0
-    for row in cart:
-        price = row[5]*row[11]
-        fPrice +=price
-    finalPrice = fPrice
-    if cart != []:
-        return render_template('payment.html',title = title,cart =cart,finalPrice = finalPrice)
+    finalPrice = getCartPrice()
+    if getCartPrice() != 0:
+        return render_template('payment.html',title = title,finalPrice = finalPrice)
     else:
         return render_template('payment.html', title=title)
 
