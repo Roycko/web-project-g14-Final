@@ -33,45 +33,48 @@
 			<div class="row">
 				<div class="col-lg-1 offset-lg text-center">
 					<div class="formContainer">
-		<div class="orangeTitle">Thank you for buying our delicious products!</div>
-		<p>Which shipping method do you prefer?</p>
-		<form class="myFormClass"  action="action_page.php">
-			<div class="formRow">
-				<label class="firstElement" for="shippingMethod">Shipping Method</label>
-				<select class="secondElement" id="shippingMethod" onchange="onShippingMethodChange()">
-					<option value="delivery">Delivery</option>
-					<option value="pick-up">Pick-Up</option>
-				</select>
-			</div>
-			<div id="addressContainer" class="formRow">
-				<label class="firstElement" for="address">Address</label>
-				<input class="secondElement" type="text" id="address" name="address" placeholder="Address">
-			</div>
-			<p><br>Please insert your details here:</p>
-			<div class="formRow">
-				<label class="firstElement" for="fname">First Name</label>
-				<input required class="secondElement" type="text" id="fname" name="firstname" placeholder="Your name.." pattern="[A-Za-z]{1,32}">
-			</div>
-			<div class="formRow">
-				<label class="firstElement" for="lname">Last Name</label>
-				<input required class="secondElement" type="text" id="lname" name="lastname" placeholder="Last name" pattern="[A-Za-z]{1,32}">
-			</div>
-			<p><br>Please insert your payment details here:</p>
-			<div class="formRow">
-				<label class="firstElement" for="cardnumber">Card Number</label>
-				<input required class="secondElement" id="cardnumber" type="text" pattern="(\d{4}){4}" inputmode="numeric">
-			</div>
-			<div class="formRow">
-				<label class="firstElement" for="expirationdate">Expiration (mm/yy)</label>
-				<input required class="secondElement" id="expirationdate" type="text" pattern="[0-9]+/[0-9]+" inputmode="numeric">
-			</div>
-			<div class="formRow">
-				<label class="firstElement" for="securitycode">Security Code</label>
-				<input required class="secondElement" id="securitycode" type="text" pattern="\d{3-4}" inputmode="numeric">
-			</div>
-			<input style="margin-top: 28px;" type="submit" value="Pay">
-		</form>
-	</div>
+                        {% if cart %}
+                            <div><h2>{{ finalPrice }} {{ session.username }}</h2></div>
+                            <div class="orangeTitle">Thank you for buying our delicious products!</div>
+                            <p>Which shipping method do you prefer?</p>
+                            <form class="myFormClass"  action="/saveOrder" method="post">
+                                <div class="formRow">
+                                    <label class="firstElement" for="shippingMethod">Shipping Method</label>
+                                    <select class="secondElement" id="shippingMethod" onchange="onShippingMethodChange()">
+                                        <option value="delivery">Delivery</option>
+                                        <option value="pick-up">Pick-Up</option>
+                                    </select>
+                                </div>
+                                <div id="addressContainer" class="formRow">
+                                    <label class="firstElement" for="address">Address</label>
+                                    <input class="secondElement" type="text" id="address" name="address" placeholder="Address">
+                                </div>
+                                <p><br>Please insert your details here:</p>
+                                <div class="formRow">
+                                    <label class="firstElement" for="fname">First Name</label>
+                                    <input required class="secondElement" type="text" id="fname" name="firstname" placeholder="Your name.." pattern="[A-Za-z]{1,32}">
+                                </div>
+                                <div class="formRow">
+                                    <label class="firstElement" for="lname">Last Name</label>
+                                    <input required class="secondElement" type="text" id="lname" name="lastname" placeholder="Last name" pattern="[A-Za-z]{1,32}">
+                                </div>
+                                <p><br>Please insert your payment details here:</p>
+                                <div class="formRow">
+                                    <label class="firstElement" for="cardnumber">Card Number</label>
+                                    <input required class="secondElement" id="cardnumber" type="text" pattern="(\d{4}){4}" inputmode="numeric">
+                                </div>
+                                <div class="formRow">
+                                    <label class="firstElement" for="expirationdate">Expiration (mm/yy)</label>
+                                    <input required class="secondElement" id="expirationdate" type="text" pattern="[0-9]+/[0-9]+" inputmode="numeric">
+                                </div>
+                                <div class="formRow">
+                                    <label class="firstElement" for="securitycode">Security Code</label>
+                                    <input required class="secondElement" id="securitycode" type="text" pattern="\d{3-4}" inputmode="numeric">
+                                </div>
+                                <input style="margin-top: 28px;" type="submit" value="Pay">
+                            </form>
+                        </div>
+                    {% endif %}
 				</div>
 			</div>
 		</div>

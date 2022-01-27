@@ -95,4 +95,8 @@ def update_user(email,password, firstName, lastName):
     affected_rows = dbManager.commit(query)
     return affected_rows == 1
 
+def saveContactToDB(fname,lname,email,msg):
+    query = f"insert into contact_us (first_name,last_name,email_address,message) values ('{fname}','{lname}','{email}','{msg}')"
+    affected_rows = dbManager.commit(query)
+    return affected_rows ==1
 
