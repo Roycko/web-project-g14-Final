@@ -11,6 +11,7 @@ function change(product_id,action,price){
         if (parseInt(inputEl.value)>1){
             inputEl.value= parseInt(inputEl.value)-1;
             tPrice((price),(inputEl.value),action);
+            tPrice((price),(inputEl.value),action);
         }
     }
 }

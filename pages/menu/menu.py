@@ -1,9 +1,10 @@
-from flask import Blueprint, render_template,request,redirect
+from flask import Blueprint, render_template,request,redirect,url_for
 from interact_with_DB import interact_db
 import datetime
 from flask import session
 from flask import flash
 import flask
+from utilities.general import *
 import math
 
 # menu blueprint definition
@@ -17,20 +18,35 @@ def index():
     products = interact_db(query=query, query_type='fetch')
     num_of_row=int(math.ceil(len(products)/3))
     return render_template('menu.html',title = title,temp_products=products,products=products,num_of_row=num_of_row)
+#######################################################################
+# New Code- dont work well, need to get the qt, product_id from the form ###########
+ ######################################################################
+    @menu.route('/addProduct', methods=['POST'])
+    def add_to_cart():
+        # products = request.form
+        cart = getCart()[0][1]
+        quantity = request.form.get("qt")
+        product = request.form.get("current_product")
+        insertProductToCart(product, quantity, cart)
+        return redirect(url_for('menu.index'))
 
-@menu.route('/menu_search', methods=['get','post'])
+    #######################################################################
+########################## End New Code ###############################
+   #######################################################################
+
+@menu.route('/menu_search', methods=['get'])
 def menu_search_func():
     query = "select * from Products ;"
     # name = request.form['name']
-    if request.args.get("vegan") != None:
+    if request.args.get("radAnswer") == 'vegan':
              query = "select * from Products where is_vegan=1 ;"
-    if request.args.get("gluten") != None:
+    if request.args.get("radAnswer") == 'gluten':
              query = "select * from Products where is_gluten_free=1;"
-    if request.args.get("birthday") != None:
+    if request.args.get("radAnswer") == 'birthday':
              query = "select * from Products where is_birthday_cake=1 ;"
-    if request.args.get("top") != None:
+    if request.args.get("radAnswer") == 'top':
             query = "select * from Products where is_top_seller=1 ;"
-    if request.args.get("all") != None:
+    if request.args.get("radAnswer") == 'all':
             query = "select * from Products;"
     # if request.form.get("vegan") != None:
     #     is_vegan = '1'

@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 {% block title %} {{ title }}  {% endblock %}
 {% block js %}
     {{ super() }}
@@ -43,24 +43,25 @@
 {#                                <input type="text" id="name" placeholder="Search.." name="name">#}
 
 
+
                                 <label for="vegan" class="checkbox" > Vegan</label>
-								<input name="vegan" id="vegan" type="checkbox"   >
+								<input name="radAnswer"  id="vegan" value='vegan' type="radio"   >
 								<span class="checkmark"></span>
 
 							  <label for="gluten" class="checkbox">Gluten Free</label>
-								<input   name="gluten" id="gluten" type="checkbox"  >
+								<input   name="radAnswer" id="gluten" value="gluten" type="radio"  >
 								<span class="checkmark"></span>
 
 							  <label for="birthday" class="checkbox">Birthday Cake</label>
-								<input   name="birthday" id="birthday" type="checkbox"  >
+								<input   name="radAnswer" id="birthday" value="birthday" type="radio"  >
 								<span class="checkmark"></span>
 
 							  <label for="top" class="checkbox">Top Seller</label>
-								<input name="top" id="top" type="checkbox"  >
+								<input name="radAnswer" id="top" value="top" type="radio"  >
 								<span class="checkmark"></span>
 
                                 <label for="all" class="checkbox">All</label>
-								<input name="all" id="all" type="checkbox"  checked>
+								<input name="radAnswer" id="all" value="all"  type="radio"  checked>
 								<span class="checkmark"></span>
                                 <button type="submit"><i class="fa fa-search"></i></button> <br>
                             </form>
@@ -83,13 +84,18 @@
                             </div>
                             <h3>{{ product.name}}</h3>
                             <p class="product-price"><span>{{ product.num_of_pcs }}/pcs</span> 15$ </p>
+                                <form action="/addProduct" id="menu" method="post">
                                 <div class="product-cart-quantity buttons_added">
                                     <input type="button" value="-" class="minus" id="{{ product.product_id }}" onclick="change(this.id,'minus',{{ product.price }})">
-                                    <input type="number"  value="1"  class="input-text qty text" id="input_{{ product.product_id }}" size="4" readonly="readonly">
+                                    <input type="number"  value="1" name="qt" class="input-text qty text" id="input_{{ product.product_id }}" size="4" readonly="readonly">
+                                    <input type="hidden" value="{{ product.product_id }}" id="product_{{ product.product_id }}" name="current_product">
                                     <input type="button" value="+" class="plus" id="{{ product.product_id }}" onclick="change(this.id,'plus',{{ product.price }})">
                                 </div>
                             {% if session.username %}
-                                <a onclick="addToCart(this)" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+{#                                <a onclick="addToCart(this)" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>#}
+{#                                  <button onclick="addToCart(this)" class="cart-btn"><i class="fas fa-shopping-cart"></i>Add to Cart</button>'#}
+                                 <input type="submit" class="cart-btn" id="menu" value="Add to Cart" form="menu">
+                                </form>
                             {% else %}
                                 <a  onclick="open_login();return false;"  class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
                             {% endif %}

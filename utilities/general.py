@@ -81,7 +81,21 @@ def removeProducts(products,cart):
     else:
         quary2 = f"delete from product_in_cart where product_id in {tuple(removed)} and user_id = {session['user_id']} and cart_id = {cart}"
     print(dbManager.commit(quary2))
+#######################################################################
+            ############################## New Code- need to check if the product not in the cart???? ###############################
+            #######################################################################
+def insertProductToCart(product,quantity,cart):
+    # quary = f"select product_id from product_in_cart where user_id = {session['user_id']} and cart_id = {cart} and product_id={product}"
+    # product_in_cart = dbManager.fetch(quary)
+    # if product_in_cart:
+    #     return True
+    # else:
 
+        quary2 = f" insert into Product_in_Cart(product_id, user_id, cart_id, quantity) values({product}, {session['user_id']}, {cart}, {quantity})";
+        dbManager.commit(quary2)
+#######################################################################
+            ############################## end New Code ###############################
+            #######################################################################
 def getUser(email):
     query = f"select * from users where email_address='{email}'"
     res = dbManager.fetch(query)
