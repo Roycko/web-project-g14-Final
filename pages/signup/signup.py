@@ -1,6 +1,6 @@
 import flask
 from flask import Blueprint, render_template,request,redirect,flash
-from interact_with_DB import interact_db
+from utilities.general import *
 import datetime
 from flask import session
 from flask import flash
@@ -28,7 +28,7 @@ def insert_user_func():
         password=request.form['pass']
         # check if user_name available
         query="select * from Users where email_address='%s'" %(email)
-        is_not_available=interact_db(query=query, query_type='fetch')
+        is_not_available=dbManager.fetch(query)
         if is_not_available:
             flash('Email already exists')
             return redirect('/signup')
@@ -74,7 +74,7 @@ def login_func():  # put application's code here
         password = request.form['pass']
         # this is the global veriable
         query = "select * from Users where user_name='%s' and password='%s' ;" % (user_name,password)
-        users=interact_db(query=query, query_type='fetch')
+        users=dbManager.fetch(query)
         if users:
             for user in users:
                 session['username']=user[4]

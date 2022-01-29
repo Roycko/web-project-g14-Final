@@ -41,7 +41,7 @@ def hasActiveCart():
         return True
 
 def getCart():
-    returnedCartQuery = f"select c.user_id, c.cart_id, p.*,pic.quantity from carts c join product_in_cart pic on c.user_id = pic.user_id right join products p on pic.product_id = p.product_id where pic.user_id = {session['user_id']} and c.status = 'active'"
+    returnedCartQuery = f"select c.user_id, c.cart_id, p.*,pic.quantity from carts c join product_in_cart pic on c.user_id = pic.user_id and c.cart_id=pic.cart_id right join products p on pic.product_id = p.product_id where pic.user_id = {session['user_id']} and c.status = 'active'"
     returnedCart = dbManager.fetch(returnedCartQuery)
     return returnedCart
 
@@ -143,7 +143,7 @@ def getCartPrice():
 
 def closeCart(cart_id):
     status = "inactive"
-    query = f"UPDATE carts SET status='{status}' where cart_id='{cart_id}'"
+    query = f"UPDATE carts SET status='{status}' where cart_id='{cart_id}' and user_id = '{session['user_id']}'"
     affected_rows = dbManager.commit(query)
     return affected_rows == 1
 
@@ -152,3 +152,9 @@ def savePaymentToDB(user_id, cart_id, shippingMethod, address, totalPrice, order
     closeCart(cart_id)
     affected_rows = dbManager.commit(query)
     return affected_rows ==1
+
+def cartForUser():
+    if session['user_id'] !='':
+        if not hasActiveCart():
+            createCart()
+    return True

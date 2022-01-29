@@ -1,5 +1,4 @@
 from flask import Blueprint, render_template,session,request,redirect,url_for
-from interact_with_DB import interact_db,interact_db_json
 from utilities.general import *
 from utilities.entities.product import *
 from utilities.entities.user import *
@@ -11,10 +10,10 @@ title ='Matamim | Your Cart'
 # Routes
 @cart.route('/cart')
 def cart_func():
-    if hasActiveCart():
-        returnedCart= getCart()
-    else:
-        returnedCart = createCart()
+    # if hasActiveCart():
+    returnedCart= getCart()
+    # else:
+    #     returnedCart = createCart()
     return render_template('cart.html',title = title, products = returnedCart)
 
 @cart.route('/saveChanges' , methods = ['POST'])
