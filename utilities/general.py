@@ -29,6 +29,9 @@ def get_all_products():
 #     else:
 #         return True
 
+
+## ------------- CARTS ---------------- ##
+
 def hasActiveCart():
     query = f"select * from Carts where user_id = {session['user_id']} and status = 'active'"
     cart = dbManager.fetch(query)
@@ -60,6 +63,9 @@ def createCart():
 def updateCart(product,quantity,cart):
     updateQuery = f"update product_in_cart set quantity = {quantity} where cart_id = {cart} and product_id = {product}"
     dbManager.commit(updateQuery)
+
+
+## ------------- Products ---------------- ##
 
 def removeProducts(products,cart):
     quary = f"select product_id from product_in_cart where user_id = {session['user_id']} and cart_id = {cart}"
@@ -96,6 +102,12 @@ def insertProductToCart(product,quantity,cart):
 #######################################################################
             ############################## end New Code ###############################
             #######################################################################
+
+
+
+## ------------- Users ---------------- ##
+
+
 def getUser(email):
     query = f"select * from users where email_address='{email}'"
     res = dbManager.fetch(query)
@@ -109,10 +121,16 @@ def update_user(email,password, firstName, lastName):
     affected_rows = dbManager.commit(query)
     return affected_rows == 1
 
+
+## ------------- Contact us ---------------- ##
+
+
 def saveContactToDB(fname,lname,email,msg):
     query = f"insert into contact_us (first_name,last_name,email_address,message) values ('{fname}','{lname}','{email}','{msg}')"
     affected_rows = dbManager.commit(query)
     return affected_rows ==1
+
+## ------------- Orders (payments) ---------------- ##
 
 def getCartPrice():
     cart = getCart()
@@ -122,3 +140,15 @@ def getCartPrice():
         fPrice +=price
     finalPrice = fPrice
     return finalPrice
+
+def closeCart(cart_id):
+    status = "inactive"
+    query = f"UPDATE carts SET status='{status}' where cart_id='{cart_id}'"
+    affected_rows = dbManager.commit(query)
+    return affected_rows == 1
+
+def savePaymentToDB(user_id, cart_id, shippingMethod, address, totalPrice, order_status, reservation_dt):
+    query = f"insert into orders (user_id, cart_id, shipping_method, address, total_price, order_status, reservation_dt) values ('{user_id}','{cart_id}', '{shippingMethod}','{address}', '{totalPrice}', '{order_status}', '{reservation_dt}')"
+    closeCart(cart_id)
+    affected_rows = dbManager.commit(query)
+    return affected_rows ==1

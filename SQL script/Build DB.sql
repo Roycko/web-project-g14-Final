@@ -50,14 +50,7 @@ shipping_method VARCHAR(20),
 address VARCHAR(20),
 total_price float,
 reservation_dt datetime,
-Estimated_arrival date,
-tracking_link varchar(40),
 order_status VARCHAR(20),
--- payment_method VARCHAR(20),
-expiration_date date,
-card_number VARCHAR(20),
-CVV int,
-status VARCHAR(20),
 constraint fk_carts FOREIGN KEY (user_id,cart_id) references Carts(user_id,cart_id)-- when click on payment from cart save here the cart (new raw in table with the cart price) , and when finish the order to update the status on the cart 
 );
 
