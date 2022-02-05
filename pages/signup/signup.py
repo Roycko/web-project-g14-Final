@@ -16,7 +16,7 @@ title = 'Matamim | Sign Up'
 @signup.route('/signup')
 def index():
     return render_template('signup.html',title = title)
-@signup.route ('/insert_user',methods=['get','post'])
+@signup.route ('/insert_user',methods=['post'])
 def insert_user_func():
         #get the date
         first_name=request.form['first_name']
@@ -27,51 +27,29 @@ def insert_user_func():
         email=request.form['email']
         password=request.form['pass']
         # check if user_name available
-        query="select * from Users where email_address='%s'" %(email)
-        is_not_available=dbManager.fetch(query)
-        if is_not_available:
-            flash('Email already exists')
+        is_not_available=is_email_not_availabe(email)
+        is_user_pass_not=is_user_pass_not_availabe(user_name,password)
+        if is_not_available or is_user_pass_not:
+            if is_not_available:
+                flash('Email already exists')
+            if is_user_pass_not:
+                flash('change username+pass')
             return redirect('/signup')
         else:
-            #insert
-            #######################################################################
-            ############################## New Code ###############################
-            #######################################################################
             newUser = User(email,first_name,last_name,user_name,password,birth_date,Registration_DT)
             newUser.registerUser()
             session['username'] = user_name
             session['user_id'] = newUser.getUserId()
             session['email_address'] = newUser.getEmail()
-            #######################################################################
-            ########################## End New Code ###############################
-            #######################################################################
-
-            #######################################################################
-            ############################## Old Code ###############################
-            #######################################################################
-
-            # query="insert into Users(first_name,email_address,last_name,user_name,password,birth_date,Registration_DT) values ('%s','%s','%s','%s','%s','%s','%s');" %(first_name,email,last_name,user_name,password,birth_date,Registration_DT)
-            # interact_db(query=query,query_type='commit')
-            # query = "select * from Users where user_name='%s' and password='%s' ;" % (user_name, password)
-            # users = interact_db(query=query, query_type='fetch')
-            # if users:
-            #     for user in users:
-            #         session['username'] = user[4]
-            #         session['user_id'] = user[0]
-
-            #######################################################################
-            ########################## End Old Code ###############################
-            #######################################################################
-
             flash('signup success :)')
             return redirect('/home')
 
-@signup.route('/login',methods=["GET","POST"])
+@signup.route('/login',methods=["GET"])
 def login_func():  # put application's code here
-    if request.method == 'POST':
+    if request.method == 'GET':
         # no with the args in the 'post'(get-> args, post->form)
-        user_name=request.form['user_name']
-        password = request.form['pass']
+        user_name=request.form.get('user_name')
+        password = request.form.get('pass')
         # this is the global veriable
         query = "select * from Users where user_name='%s' and password='%s' ;" % (user_name,password)
         users=dbManager.fetch(query)

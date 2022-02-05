@@ -84,17 +84,16 @@
                             </div>
                             <h3>{{ product.name}}</h3>
                             <p class="product-price"><span>{{ product.num_of_pcs }}/pcs</span> 15$ </p>
-                                <form action="/addProduct" id="menu" method="post">
+                                <form action="/addProduct" id="menu"  method="post">
                                 <div class="product-cart-quantity buttons_added">
                                     <input type="button" value="-" class="minus" id="{{ product.product_id }}" onclick="change(this.id,'minus',{{ product.price }})">
-                                    <input type="number"  value="1" name="qt" class="input-text qty text" id="input_{{ product.product_id }}" size="4" readonly="readonly">
-                                    <input type="hidden" value="{{ product.product_id }}" id="product_{{ product.product_id }}" name="current_product">
+                                    <input type="number"  value="1" name="qt{{ product.product_id }}" class="input-text qty text" id="input_{{ product.product_id }}" size="4" readonly="readonly">
                                     <input type="button" value="+" class="plus" id="{{ product.product_id }}" onclick="change(this.id,'plus',{{ product.price }})">
                                 </div>
                             {% if session.username %}
 {#                                <a onclick="addToCart(this)" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>#}
 {#                                  <button onclick="addToCart(this)" class="cart-btn"><i class="fas fa-shopping-cart"></i>Add to Cart</button>'#}
-                                 <input type="submit" class="cart-btn" id="menu" value="Add to Cart" form="menu">
+                                 <input  type="submit" class="cart-btn" name="submit{{product.product_id}}" id="{{ product.product_id }}" value="Add to Cart" >
                                 </form>
                             {% else %}
                                 <a  onclick="open_login();return false;"  class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>

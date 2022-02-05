@@ -56,7 +56,7 @@ constraint fk_carts FOREIGN KEY (user_id,cart_id) references Carts(user_id,cart_
 
 CREATE TABLE web_project_g14.Events (
 event_id int auto_increment primary key ,
-is_pesonal bool,
+is_personal bool,
 event_type varchar(20),
 event_name varchar(20),
 status varchar(20),-- left, canceled, full booked, have place,personal 

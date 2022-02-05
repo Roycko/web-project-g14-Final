@@ -21,6 +21,10 @@ def get_all_products():
         products_list.append(product)
     return products_list
 
+def get_all_products_as_table():
+    query = "select * from Products"
+    res = dbManager.fetch(query)
+    return res
 # def hasAcart():
 #     query = f"select * from Carts where user_id = {session['user_id']} and status = 'active'"
 #     cart = dbManager.fetch(query)
@@ -35,13 +39,18 @@ def get_all_products():
 def hasActiveCart():
     query = f"select * from Carts where user_id = {session['user_id']} and status = 'active'"
     cart = dbManager.fetch(query)
-    if len(cart) == 0:
-        return False
-    else:
+    if cart:
         return True
+    else:
+        return False
 
 def getCart():
     returnedCartQuery = f"select c.user_id, c.cart_id, p.*,pic.quantity from carts c join product_in_cart pic on c.user_id = pic.user_id and c.cart_id=pic.cart_id right join products p on pic.product_id = p.product_id where pic.user_id = {session['user_id']} and c.status = 'active'"
+    returnedCart = dbManager.fetch(returnedCartQuery)
+    return returnedCart
+
+def getCartID():
+    returnedCartQuery = f"select  c.cart_id from carts c where c.user_id = {session['user_id']} and c.status = 'active'"
     returnedCart = dbManager.fetch(returnedCartQuery)
     return returnedCart
 
@@ -49,12 +58,13 @@ def createCart():
     maxCartQuery = f"select max(cart_id) as 'maxCart'  from carts  where user_id = {session['user_id']} group by user_id"
     maxCartId = dbManager.fetch(maxCartQuery)
     print(maxCartId)
-    if len(maxCartId) == 0:
-        newCartQuery = f"insert into carts (user_id,cart_id,status) values ('{session['user_id']}','1','active')"
-    else:
+    if maxCartId:
         maxCartId = maxCartId[0].maxCart
         print(maxCartId)
-        newCartQuery = f"insert into carts (user_id,cart_id,status) values ('{session['user_id']}','{maxCartId+1}','active')"
+        newCartQuery = f"insert into carts (user_id,cart_id,status) values ('{session['user_id']}','{maxCartId + 1}','active')"
+
+    else:
+        newCartQuery = f"insert into carts (user_id,cart_id,status) values ('{session['user_id']}','1','active')"
     dbManager.commit(newCartQuery)
     returnedCartQuery = f"select c.user_id, c.cart_id, p.* ,pic.quantity from carts c join product_in_cart pic on c.user_id = pic.user_id join products p on pic.product_id = p.product_id where pic.user_id = {session['user_id']} and c.status = 'active'"
     returnedCart = dbManager.fetch(returnedCartQuery)
@@ -87,21 +97,11 @@ def removeProducts(products,cart):
     else:
         quary2 = f"delete from product_in_cart where product_id in {tuple(removed)} and user_id = {session['user_id']} and cart_id = {cart}"
     print(dbManager.commit(quary2))
-#######################################################################
-            ############################## New Code- need to check if the product not in the cart???? ###############################
-            #######################################################################
-def insertProductToCart(product,quantity,cart):
-    # quary = f"select product_id from product_in_cart where user_id = {session['user_id']} and cart_id = {cart} and product_id={product}"
-    # product_in_cart = dbManager.fetch(quary)
-    # if product_in_cart:
-    #     return True
-    # else:
 
+def insertProductToCart(product,quantity,cart):
         quary2 = f" insert into Product_in_Cart(product_id, user_id, cart_id, quantity) values({product}, {session['user_id']}, {cart}, {quantity})";
         dbManager.commit(quary2)
-#######################################################################
-            ############################## end New Code ###############################
-            #######################################################################
+
 
 
 
@@ -121,6 +121,13 @@ def update_user(email,password, firstName, lastName):
     affected_rows = dbManager.commit(query)
     return affected_rows == 1
 
+def is_email_not_availabe(email):
+    query = "select * from Users where email_address='%s'" % (email)
+    return dbManager.fetch(query)
+
+def is_user_pass_not_availabe(user_name,password):
+    query = "select * from Users where user_name='%s' and password='%s' ;" % (user_name, password)
+    return dbManager.fetch(query)
 
 ## ------------- Contact us ---------------- ##
 
@@ -158,3 +165,18 @@ def cartForUser():
         if not hasActiveCart():
             createCart()
     return True
+
+def menu_search(is_vegan,is_gluten_free,is_birthday_cake,is_top_seller,all):
+    query = "select * from Products;"
+    if is_vegan == 1:
+        query = "select * from Products where is_vegan=1 ;"
+    if is_gluten_free == 1:
+        query = "select * from Products where is_gluten_free=1;"
+    if is_birthday_cake == 1:
+        query = "select * from Products where is_birthday_cake=1 ;"
+    if  is_top_seller == 1:
+        query = "select * from Products where is_top_seller=1 ;"
+    if all == 1:
+        query = "select * from Products;"
+    products = dbManager.fetch(query)
+    return products

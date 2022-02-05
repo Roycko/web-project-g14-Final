@@ -3,6 +3,7 @@ import datetime
 from flask import session
 from flask import flash
 import flask
+from utilities import *
 from utilities.general import *
 import math
 
@@ -13,8 +14,7 @@ title = 'Matamim | Menu'
 # Routes
 @menu.route('/menu')
 def index():
-    query = "select * from Products ;"
-    products = dbManager.fetch(query)
+    products = get_all_products_as_table()
     num_of_row=int(math.ceil(len(products)/3))
     return render_template('menu.html',title = title,temp_products=products,products=products,num_of_row=num_of_row)
 #######################################################################
@@ -23,10 +23,27 @@ def index():
 @menu.route('/addProduct', methods=['POST'])
 def add_to_cart():
     # products = request.form
-    cart = getCart()[0][1]
-    quantity = request.form.get("qt")
-    product = request.form.get("current_product")
-    insertProductToCart(product, quantity, cart)
+    cart = getCartID()[0][0]
+    products = get_all_products()
+    # query = "select * from Products ;"
+    # products=dbManager.fetch(query)
+    product=1
+    quantity=1
+    for i in range(len(products)):
+        if 'submit'+str(i) in request.form:
+            quantity = request.form.get("qt" + str(i))
+            product = i
+    #add only if the product not already in the cart
+    Products_in_cart=getCart()
+    in_cart=False
+    for i in range(len(Products_in_cart)):
+        if Products_in_cart[i][2]==product:
+            in_cart=True
+    if (in_cart):
+        flash('Already in Cart')
+    else:
+        insertProductToCart(product, quantity, cart)
+        flash('Product Added')
     return redirect(url_for('menu.index'))
 
     #######################################################################
@@ -35,38 +52,15 @@ def add_to_cart():
 
 @menu.route('/menu_search', methods=['get'])
 def menu_search_func():
-    query = "select * from Products ;"
+    products = menu_search(0, 0, 0, 0, 1)
     # name = request.form['name']
     if request.args.get("radAnswer") == 'vegan':
-             query = "select * from Products where is_vegan=1 ;"
+             products=menu_search(1,0,0,0,0)
     if request.args.get("radAnswer") == 'gluten':
-             query = "select * from Products where is_gluten_free=1;"
+            products = menu_search(0, 1, 0, 0, 0)
     if request.args.get("radAnswer") == 'birthday':
-             query = "select * from Products where is_birthday_cake=1 ;"
+             products = menu_search(0, 0, 1, 0, 0)
     if request.args.get("radAnswer") == 'top':
-            query = "select * from Products where is_top_seller=1 ;"
-    if request.args.get("radAnswer") == 'all':
-            query = "select * from Products;"
-    # if request.form.get("vegan") != None:
-    #     is_vegan = '1'
-    # else:
-    #     is_vegan = '0'
-    # if request.form.get("gluten") != None:
-    #     is_gluten_free = '1'
-    # else:
-    #     is_gluten_free = '0'
-    # if request.form.get("birthday") != None:
-    #     is_birthday = '1'
-    # else:
-    #     is_birthday = '0'
-    # if request.form.get("top") != None:
-    #     is_top = '1'
-    # else:
-    #     is_top = '0'
-    # if request.form.get("all") != None:
-    #     is_all = '1'
-    # else:
-    #     is_all = '0'
-    products = dbManager(query)
+            products = menu_search(0, 0, 0, 1, 0)
     num_of_row = int(math.ceil(len(products)/ 3))
     return render_template('menu.html',title = title,products=products,temp_products=products,num_of_row=num_of_row)
