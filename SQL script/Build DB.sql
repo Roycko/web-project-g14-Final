@@ -100,5 +100,35 @@ constraint fk_users_event_2 FOREIGN KEY (event_id) references Events(event_id),
 constraint pk_Carts primary key (event_id,user_id)
 );
 
+#drop table web_project_g14.existing_event_ziv;
+#drop table web_project_g14.private_event;
 
+CREATE TABLE web_project_g14.existing_event_ziv (
+#event_id int auto_increment primary key,
+event_type VARCHAR(20),
+event_name VARCHAR(20),
+event_date date,
+Amount VARCHAR(20),
+fname VARCHAR(20),
+Lname VARCHAR(20),
+email VARCHAR(20),
+Phone VARCHAR(20) primary key,
+event_res_dt datetime,
+event_status VARCHAR(20)
+);
 
+CREATE TABLE web_project_g14.private_event (
+#event_id int auto_increment primary key,
+p_event_type VARCHAR(20),
+p_event_name VARCHAR(50),
+Food_prefernces VARCHAR(20),
+p_event_date date,
+PAmount VARCHAR(20),
+Pfname VARCHAR(20),
+PLname VARCHAR(20),
+Pemail VARCHAR(20),
+PPhone VARCHAR(20),
+Address VARCHAR(50),
+p_event_res_dt datetime,
+p_event_status VARCHAR(20)
+);

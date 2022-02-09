@@ -3,6 +3,7 @@ from utilities.general import *
 import datetime
 from flask import flash
 
+
 # payment blueprint definition
 payment = Blueprint('payment', __name__, static_folder='payment', static_url_path='/static', template_folder='templates')
 title = 'Matamim | Complete your purchase'

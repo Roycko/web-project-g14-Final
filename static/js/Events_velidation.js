@@ -1,27 +1,33 @@
-function Validition() {
-    console.log('start');
-        var inpObj = document.getElementById("type");
-        var inpObj2 = document.getElementById("Range_of_Ages");
-        var inpObj3 = document.getElementById("Food_prefernces");
-        var inpObj4 = document.getElementById("Amount");
-        var inpObj5 = document.getElementById("firstname");
-        var inpObj6 = document.getElementById("lastname");
-        var inpObj7 = document.getElementById("email");
-        var inpObj8 = document.getElementById("Phone");
-        var inpObj9 = document.getElementById("Address");
-        var inpObjV = document.getElementById("type").value;
-        var inpObjV2 = document.getElementById("Range_of_Ages").value;
-        var inpObjV3 = document.getElementById("Food_prefernces").value;
-        var inpObjV4 = document.getElementById("Amount").value;
-        var inpObjV5 = document.getElementById("fname").value;
-        var inpObjV6 = document.getElementById("Lname").value;
-        var inpObjV7 = document.getElementById("email").value;
-        var inpObjV8 = document.getElementById("Phone").value;
-        var inpObjV9 = document.getElementById("Address").value;
+function ValiditionExistingEvent() {
+   console.log('start Val ExistingEvent');
+        var inpObj = document.getElementById("event_name");
+        var inpObj2 = document.getElementById("event_date");
+        var inpObj3 = document.getElementById("Amount");
+        var inpObj4 = document.getElementById("fname");
+        var inpObj5 = document.getElementById("Lname");
+        var inpObj6 = document.getElementById("email");
+        var inpObj7 = document.getElementById("Phone");
 
 
-        if(!inpObjV4 || !inpObjV5 || !inpObjV6 || !inpObjV7 || !inpObjV8 || !inpObjV9){
-            document.getElementById("mandatory").innerHTML = 'fill ALL the field';
+        if(!inpObj3 || !inpObj4 || !inpObj5 || !inpObj6 || !inpObj7){
+            document.getElementById("mandatoryX").innerHTML = 'fill ALL the field';
+            return false;
+        }
+}
+
+function ValiditionPrivteEvent() {
+    console.log('start Val PrivteEvent');
+        var inpObjP = document.getElementById("p_event_name");
+        var inpObjP2 = document.getElementById("p_event_date");
+        var inpObjP3 = document.getElementById("PAmount");
+        var inpObjP4 = document.getElementById("Pfname");
+        var inpObjP5 = document.getElementById("PLname");
+        var inpObjP6 = document.getElementById("Pemail");
+        var inpObjP7 = document.getElementById("PPhone");
+
+
+        if(!inpObjP || !inpObjP2 || !inpObjP3 || !inpObjP4 || !inpObjP5 || !inpObjP6 || !inpObjP7){
+            document.getElementById("mandatoryP").innerHTML = 'fill ALL the field';
             return false;
         }
 }

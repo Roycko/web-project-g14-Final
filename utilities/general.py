@@ -180,3 +180,14 @@ def menu_search(is_vegan,is_gluten_free,is_birthday_cake,is_top_seller,all):
         query = "select * from Products;"
     products = dbManager.fetch(query)
     return products
+
+## ------------- Events ---------------- ##
+def saveExistingEventToDB(event_type, event_name, event_date, Amount, fname, Lname, email, Phone, event_res_dt, event_status):
+    query = f"insert into web_project_g14.existing_event_ziv (event_type, event_name, event_date, Amount, fname, Lname, email, Phone, event_res_dt, event_status) values ({event_type}', '{event_name}','{event_date}', '{Amount}', '{fname}', '{Lname}', '{email}', '{Phone}', '{event_res_dt}', '{event_status}')"
+    affected_rows = dbManager.commit(query)
+    return affected_rows ==1
+
+def savePrivteEventToDB(user_id, p_event_type, p_event_name, Food_prefernces, p_event_date, PAmount, Pfname, PLname, Pemail, PPhone, Address, p_event_res_dt, p_event_status):
+    query = f"insert into web_project_g14.private_event (user_id, p_event_type, p_event_name, Food_prefernces, p_event_date, PAmount, Pfname, PLname, Pemail, PPhone, Address, p_event_res_dt, p_event_status) values ({p_event_type}', '{p_event_name}','{Food_prefernces}', '{p_event_date}', '{PAmount}', '{Pfname}', '{PLname}', '{Pemail}', '{PPhone}', '{Address}', , '{p_event_res_dt}', '{p_event_status}')"
+    affected_rows = dbManager.commit(query)
+    return affected_rows ==1
