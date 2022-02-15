@@ -162,7 +162,7 @@ def savePaymentToDB(user_id, cart_id, shippingMethod, address, totalPrice, order
 
 def cartForUser():
     #session['user_id'] = 1
-    if session['user_id'] !='':
+    if session['user_id'] is not None:
         if not hasActiveCart():
             createCart()
     return True
