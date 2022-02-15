@@ -20,7 +20,7 @@
 							<p class="subtitle">BISS OF BLISS</p>
 							<h1>Events</h1>
 							<div class="grey-btns">
-								<a href="/events" class="boxed-btn">My Events</a>
+								<a href="/profile" class="boxed-btn">My Events</a>
 							</div>
 						</div>
 					</div>
@@ -37,87 +37,80 @@
 			<div class="row">
 				<div class="col-lg-1 offset-lg text-center" id="orderEvents">
 					<div class="section-title">
-						<h2><span class="orange-text">Our</span> Events</h2>
+						<h2><span class="orange-text">Our</span> Events</h2><br>
+                        {% for event in events %}
+                            <h4>{{ event.event_name}}</h4>
+                            <a><div class="event-bg" style="background-image: url('{{ event.image_src }}')"></div></a><br>
+						    <p>{{ event.long_description }}</p><br>
+                            {% if session.username %}
+                            <form action="/bookEvent" method="post">
+                                <input type="submit" value="BOOK EVENT" name="{{ event.event_id }}">
+                            </form>
+                            {% endif %}
+                            <br>
+                            <hr>
+                        {% endfor %}
 
-						<!-- Existing Events section -->
-						<h4>Our company offers to Participate in an existing event or to create your own event</h4>
-                        <h3>Existing Event</h3>
-						<h4>A chocolate workshop</h4><br>
-                        <a><div class="event-bg event-bg-1"></div></a><br>
-						<p>The chocolate workshop is a great activity for kids and adults, and is suitable for all ages.
-							The tour begins with a 15 minute video about the origins of chocolate,
-							and proceeds to a workshop room. At the workshops, each participant can choose their desired workshop,
-							and still work around the same table.</p><br>
-						<h4>Chocolate events in the coming month - 1.3.2022, 15.3.2022, 26.3.2022</h4><br>
-                        <h4>Make your waffle</h4>
-                        <a><div class="event-bg event-bg-3"></div></a><br>
-						<p>Our classic workshop runs almost every week in the year!
-						It lasts about 90 minutes, no previous cooking experience is needed and you
-						can make as many waffles as you can eat!</p><br>
-						<h4>Waffle events in the coming month - 3.3.2022, 10.3.2022, 19.3.2022</h4><br>
-						<div class="formContainer">
-							<div>
-								<h2><span class="orange-text">Order Place to</span> an Existing Event</h2>
-								<p>Our existing events take place at Avraham Avinu 31/75, Be'er Sheva at 5pm</p>
-								<form class="myFormClass" id=form_Existing_order_event action="/saveExistingEvent" onSubmit="return inputValidity()" method="post"><!--"/saveExistingEvent"-->
-									<div class="formRow">
-										<label class="firstElement" for="event_name">Event Name: </label>
-										<select name="event_name" id="event_name">
-											<option class="secondElement" value="Empty"></option>
-											<option class="secondElement" value="Chocolate">Chocolate</option>
-											<option class="secondElement" value="Waffle">Waffle</option>
-										</select><br>
-									</div>
-									<div class="formRow">
-										<label class="firstElement" for="event_date">Event Date: </label>
-										<select name="event_date" id="event_date">
-											<option class="secondElement" value="Empty"></option>
-											<option class="secondElement" value="1.3.2022">1/3/2022</option>
-											<option class="secondElement" value="15.3.2022">15/3/2022</option>
-											<option class="secondElement" value="26.3.2022">26/3/2022</option>
-											<option class="secondElement" value="3.3.2022">3/3/2022</option>
-											<option class="secondElement" value="10.3.2022">10/3/2022</option>
-											<option class="secondElement" value="19.3.2022">19/3/2022</option>
-										</select><br>
-									</div>
-									<div class="formRow">
-										<label class="firstElement" for="Amount">Amount:</label>
-										<input required class="secondElement" type="text" id="Amount" name="Amount" placeholder="Amount of people..">
-									</div>
-									<div class="formRow">
-										<label class="firstElement" for="fname">First Name:</label>
-										<input required class="secondElement" type="text" id="fname" name="fname" pattern="[A-Za-z]{1,32}" placeholder="Your first name..">
-									</div>
-									<div class="formRow">
-										<label class="firstElement" for="Lname">Last Name:</label>
-										<input required class="secondElement" type="text" id="Lname" name="Lname" pattern="[A-Za-z]{1,32}" placeholder="Your last name..">
-									</div>
-									<div class="formRow">
-										<label class="firstElement" for="email">Email:</label>
-										<input required class="secondElement" type="text" id="email" name="email" placeholder="Email Address..">
-									</div>
-									<div class="formRow">
-										<label class="firstElement" for="Phone">Phone:</label>
-										<input required class="secondElement" type="text" id="Phone" name="Phone" minlength="7" maxlength="15" placeholder="Phone number..">
-									</div>
-								<input style="margin-top: 28px;" type="submit" value="Submit" onclick="return ValiditionExistingEvent()">
-								<p id="mandatoryX"></p>
-								<p id="errorPhone"></p>
-								</form>
-							</div>
-						</div>
-                        <hr color="orange"><br>
+{#						<div class="formContainer">#}
+{#							<div>#}
+{#								<h2><span class="orange-text">Order Place to</span> an Existing Event</h2>#}
+{#								<p>Our existing events take place at Avraham Avinu 31/75, Be'er Sheva at 5pm</p>#}
+{#								<form class="myFormClass" id=form_Existing_order_event action="/saveExistingEvent" method="post"><!--"/saveExistingEvent"-->#}
+{#									<div class="formRow">#}
+{#										<label class="firstElement" for="event_name">Event Name: </label>#}
+{#										<select name="event_name" id="event_name">#}
+{#											<option class="secondElement" value="Empty"></option>#}
+{#											<option class="secondElement" value="Chocolate">Chocolate</option>#}
+{#											<option class="secondElement" value="Waffle">Waffle</option>#}
+{#										</select><br>#}
+{#									</div>#}
+{#									<div class="formRow">#}
+{#										<label class="firstElement" for="event_date">Event Date: </label>#}
+{#										<select name="event_date" id="event_date">#}
+{#											<option class="secondElement" value="Empty"></option>#}
+{#											<option class="secondElement" value="1.3.2022">1/3/2022</option>#}
+{#											<option class="secondElement" value="15.3.2022">15/3/2022</option>#}
+{#											<option class="secondElement" value="26.3.2022">26/3/2022</option>#}
+{#											<option class="secondElement" value="3.3.2022">3/3/2022</option>#}
+{#											<option class="secondElement" value="10.3.2022">10/3/2022</option>#}
+{#											<option class="secondElement" value="19.3.2022">19/3/2022</option>#}
+{#										</select><br>#}
+{#									</div>#}
+{#									<div class="formRow">#}
+{#										<label class="firstElement" for="Amount">Amount:</label>#}
+{#										<input required class="secondElement" type="text" id="Amount" name="Amount" placeholder="Amount of people..">#}
+{#									</div>#}
+{#									<div class="formRow">#}
+{#										<label class="firstElement" for="fname">First Name:</label>#}
+{#										<input required class="secondElement" type="text" id="fname" name="fname" pattern="[A-Za-z]{1,32}" placeholder="Your first name..">#}
+{#									</div>#}
+{#									<div class="formRow">#}
+{#										<label class="firstElement" for="Lname">Last Name:</label>#}
+{#										<input required class="secondElement" type="text" id="Lname" name="Lname" pattern="[A-Za-z]{1,32}" placeholder="Your last name..">#}
+{#									</div>#}
+{#									<div class="formRow">#}
+{#										<label class="firstElement" for="email">Email:</label>#}
+{#										<input required class="secondElement" type="text" id="email" name="email" placeholder="Email Address..">#}
+{#									</div>#}
+{#									<div class="formRow">#}
+{#										<label class="firstElement" for="Phone">Phone:</label>#}
+{#										<input required class="secondElement" type="text" id="Phone" name="Phone" minlength="7" maxlength="15" placeholder="Phone number..">#}
+{#									</div>#}
+{#								<input style="margin-top: 28px;" type="submit" value="Submit" onclick="return ValiditionExistingEvent()">#}
+{#								<p id="mandatoryX"></p>#}
+{#								<p id="errorPhone"></p>#}
+{#								</form>#}
+{#							</div>#}
+{#						</div>#}
+{#                        <hr color="orange"><br>#}
 						<!--End existing Events section -->
 
 						<!-- Private Events section -->
-                        <h3>Private Event</h3><br>
-                        <a><div class="event-bg event-bg-2"></div></a><br>
-						<p>We're bringing the bakery to you, now offering contactless delivery
-						nationwide so you can get your cakes and chocolates were ever you want to.</p><br>
+
 						<div class="formContainer">
 							<div>
 								<h2><span class="orange-text">Order pri</span>vate Event</h2>
-								<form class="myFormClass" id=form_order_event action="/savePrivateEvent" onSubmit="return inputValidity()" method="post">
+								<form class="myFormClass" id=form_order_event action="/savePrivateEvent"  method="post">
 									<div class="formRow">
 										<label class="firstElement" for="p_event_name">Event name:</label>
 										<input required class="secondElement" type="text" id="p_event_name" name="p_event_name" placeholder="Name your event..">
@@ -140,23 +133,7 @@
 										<input required class="secondElement" type="text" id="PAmount" name="PAmount" placeholder="Amount of people..">
 									</div>
 									<div class="formRow">
-										<label class="firstElement" for="Pfname">First Name:</label>
-										<input required class="secondElement" type="text" id="Pfname" name="Pfname" pattern="[A-Za-z]{1,32}" placeholder="Your first name..">
-									</div>
-									<div class="formRow">
-										<label class="firstElement" for="PLname">Last Name:</label>
-										<input required class="secondElement" type="text" id="PLname" name="PLname" pattern="[A-Za-z]{1,32}" placeholder="Your last name..">
-									</div>
-									<div class="formRow">
-										<label class="firstElement" for="Pemail">Email:</label>
-										<input required class="secondElement" type="text" id="Pemail" name="Pemail" placeholder="Email Address..">
-									</div>
-									<div class="formRow">
-										<label class="firstElement" for="PPhone">Phone:</label>
-										<input required class="secondElement" type="text" id="PPhone" name="PPhone" minlength="7" maxlength="15" placeholder="Phone number..">
-									</div>
-									<div class="formRow">
-										<label class="firstElement" for="Address">Address:</label>
+										<label class="firstElement" for="Address">Place:</label>
 										<input required class="secondElement" type="text" id="Address" name="Address" placeholder="Address..">
 									</div>
 								<input style="margin-top: 28px;" type="submit" value="Submit" onclick="return ValiditionPrivteEvent()">

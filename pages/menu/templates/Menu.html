@@ -39,13 +39,8 @@
 						<p>Choose from our bests</p>
                         <div class="search-container">
                             <form action="/menu_search" method="get">
-{#                                <label for="name" class="checkbox">#}
-{#                                <input type="text" id="name" placeholder="Search.." name="name">#}
-
-
-
                                 <label for="vegan" class="checkbox" > Vegan</label>
-								<input name="radAnswer"  id="vegan" value='vegan' type="radio"   >
+								<input name="radAnswer"  id="vegan" value='vegan' type="radio">
 								<span class="checkmark"></span>
 
 							  <label for="gluten" class="checkbox">Gluten Free</label>
@@ -91,8 +86,6 @@
                                     <input type="button" value="+" class="plus" id="{{ product.product_id }}" onclick="change(this.id,'plus',{{ product.price }})">
                                 </div>
                             {% if session.username %}
-{#                                <a onclick="addToCart(this)" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>#}
-{#                                  <button onclick="addToCart(this)" class="cart-btn"><i class="fas fa-shopping-cart"></i>Add to Cart</button>'#}
                                  <input  type="submit" class="cart-btn" name="submit{{product.product_id}}" id="{{ product.product_id }}" value="Add to Cart" >
                                 </form>
                             {% else %}
@@ -103,168 +96,7 @@
                 {% endfor %}
                 </div>
             {% endfor %}
-
-
-{#			<div class="row ">#}
-{#				<div class="col-lg-4 text-center">#}
-{#					<div class="single-product-item">#}
-{#						<div class="product-image">#}
-{#							<a href=""><img src="/static/img/products/cheesecake1.jpg" alt=""></a>#}
-{#						</div>#}
-{#						<h3>Raspberries Cheese Cake</h3>#}
-{#						<p class="product-price"><span>1/pcs</span> 15$ </p>#}
-{#							<div class="product-cart-quantity buttons_added">#}
-{#						<input type="button" value="-" class="minus" onclick="m1()" >#}
-{#						<input type="number"  value="1"  class="input-text qty text" id="n1" size="4" readonly="readonly">#}
-{#						<input type="button" value="+" class="plus" onclick="p1()"><br>#}
-{#							</div>#}
-{##}
-{#						<a href="" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>#}
-{#					</div>#}
-{#				</div>#}
-{#				<div class="col-lg-4 text-center">#}
-{#					<div class="single-product-item">#}
-{#						<div class="product-image">#}
-{#							<a href=""><img src="/static/img/products/cheesecake4.jpg" alt=""></a>#}
-{#						</div>#}
-{#						<h3>Blue Berries Cheese Cake</h3>#}
-{#						<p class="product-price"><span>1/pcs</span> 18$ </p>#}
-{#							<div class="product-cart-quantity buttons_added">#}
-{#						<input type="button" value="-" class="minus" onclick="m2()">#}
-{#						<input type="number" value= 1 min= 0 class="input-text qty text" id="n2" size="4" readonly="readonly">#}
-{#						<input type="button" value="+" class="plus" onclick="p2()"><br>#}
-{#							</div>#}
-{#						<a href="" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>#}
-{#					</div>#}
-{#				</div>#}
-{#				<div class="col-lg-4 text-center">#}
-{#					<div class="single-product-item">#}
-{#						<div class="product-image">#}
-{#							<a href=""><img src="/static/img/products/cheesecake2.jpg" alt=""></a>#}
-{#						</div>#}
-{#						<h3>Passion Fruit Cheese Cake</h3>#}
-{#						<p class="product-price"><span>1/pcs</span> 18$ </p>#}
-{#							<div class="product-cart-quantity buttons_added">#}
-{#						<input type="button" value="-" class="minus" onclick="m3()">#}
-{#						<input type="number" value="1" min="0" class="input-text qty text" id="n3" size="4" pattern="" inputmode="">#}
-{#						<input type="button" value="+" class="plus" onclick="p3()"><br>#}
-{#							</div>#}
-{#						<a href="" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>#}
-{#					</div>#}
-{#				</div>#}
-{#			</div>#}
-{#		</div>#}
-{#	</div>#}
-{#	<!-- 2nd product row -->#}
-{#    <div class="mt-150 mb-150">#}
-{#		<div class="container">#}
-{#			#}
-{##}
-{#			<div class="row ">#}
-{#				<div class="col-lg-4 text-center">#}
-{#					<div class="single-product-item">#}
-{#						<div class="product-image">#}
-{#							<a href=""><img src="/static/img/products/cheesecake1.jpg" alt=""></a>#}
-{#						</div>#}
-{#						<h3>Raspberries Cheese Cake</h3>#}
-{#						<p class="product-price"><span>1/pcs</span> 15$ </p>#}
-{#							<div class="product-cart-quantity buttons_added">#}
-{#						<input type="button" value="-" class="minus" onclick="m4()">#}
-{#						<input type="number" value="1" min="0" class="input-text qty text" id="n4" size="4" pattern="" inputmode="">#}
-{#						<input type="button" value="+" class="plus" onclick="p4()"><br>#}
-{#							</div>#}
-{#						<a href="" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>#}
-{#					</div>#}
-{#				</div>#}
-{#				<div class="col-lg-4 text-center">#}
-{#					<div class="single-product-item">#}
-{#						<div class="product-image">#}
-{#							<a href=""><img src="/static/img/products/cheesecake4.jpg" alt=""></a>#}
-{#						</div>#}
-{#						<h3>Blue Berries Cheese Cake</h3>#}
-{#						<p class="product-price"><span>1/pcs</span> 18$ </p>#}
-{#							<div class="product-cart-quantity buttons_added">#}
-{#						<input type="button" value="-" class="minus" onclick="m5()">#}
-{#						<input type="number" value="1" min="0" class="input-text qty text" id="n5" size="4" pattern="" inputmode="">#}
-{#						<input type="button" value="+" class="plus" onclick="p5()"><br>#}
-{#							</div>#}
-{#						<a href="" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>#}
-{#					</div>#}
-{#				</div>#}
-{#				<div class="col-lg-4 text-center">#}
-{#					<div class="single-product-item">#}
-{#						<div class="product-image">#}
-{#							<a href=""><img src="/static/img/products/cheesecake2.jpg" alt=""></a>#}
-{#						</div>#}
-{#						<h3>Passion Fruit Cheese Cake</h3>#}
-{#						<p class="product-price"><span>1/pcs</span> 18$ </p>#}
-{#							<div class="product-cart-quantity buttons_added">#}
-{#						<input type="button" value="-" class="minus" onclick="m6()">#}
-{#						<input type="number" value="1" min="0" class="input-text qty text" id="n6" size="4" pattern="" inputmode="">#}
-{#						<input type="button" value="+" class="plus" onclick="p6()"><br>#}
-{#							</div>#}
-{#						<a href="" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>#}
-{#					</div>#}
-{#				</div>#}
-{#			</div>#}
-{#		</div>#}
-{#	</div>#}
-{#	<!-- end 2nd product row -->#}
-{#	<!-- 3rd product row -->#}
-{#    <div class="mt-150 mb-150">#}
-{#		<div class="container">#}
-{#			#}
-{#			<div class="row ">#}
-{#				<div class="col-lg-4 text-center">#}
-{#					<div class="single-product-item">#}
-{#						<div class="product-image">#}
-{#							<a href=""><img src="/static/img/products/cheesecake1.jpg" alt=""></a>#}
-{#						</div>#}
-{#						<h3>Raspberries Cheese Cake</h3>#}
-{#						<p class="product-price"><span>1/pcs</span> 15$ </p>#}
-{#							<div class="product-cart-quantity buttons_added">#}
-{#						<input type="button" value="-" class="minus" onclick="m7()">#}
-{#						<input type="number" value="1" min="0" class="input-text qty text" id="n7" size="4" pattern="" inputmode="">#}
-{#						<input type="button" value="+" class="plus" onclick="p7()"><br>#}
-{#							</div>#}
-{#						<a href="" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>#}
-{#					</div>#}
-{#				</div>#}
-{#				<div class="col-lg-4 text-center">#}
-{#					<div class="single-product-item">#}
-{#						<div class="product-image">#}
-{#							<a href=""><img src="/static/img/products/cheesecake4.jpg" alt=""></a>#}
-{#						</div>#}
-{#						<h3>Blue Berries Cheese Cake</h3>#}
-{#						<p class="product-price"><span>1/pcs</span> 18$ </p>#}
-{#							<div class="product-cart-quantity buttons_added">#}
-{#						<input type="button" value="-" class="minus" onclick="m8()">#}
-{#						<input type="number" value="1" min="0" class="input-text qty text" id="n8" size="4" pattern="" inputmode="">#}
-{#						<input type="button" value="+" class="plus" onclick="p8()"><br>#}
-{#							</div>#}
-{#						<a href="" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>#}
-{#					</div>#}
-{#				</div>#}
-{#				<div class="col-lg-4 text-center">#}
-{#					<div class="single-product-item">#}
-{#						<div class="product-image">#}
-{#							<a href=""><img src="/static/img/products/cheesecake2.jpg" alt=""></a>#}
-{#						</div>#}
-{#						<h3>Passion Fruit Cheese Cake</h3>#}
-{#						<p class="product-price"><span>1/pcs</span> 18$ </p>#}
-{#							<div class="product-cart-quantity buttons_added">#}
-{#						<input type="button" value="-" class="minus" onclick="m9()">#}
-{#						<input type="number" value="1" min="0" class="input-text qty text" id="n9" size="4" pattern="" inputmode="">#}
-{#						<input type="button" value="+" class="plus" onclick="p9()"><br>#}
-{#							</div>#}
-{#						<a href="" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>#}
-{#					</div>#}
-{#				</div>#}
-{#			</div>#}
-{#		</div>#}
-{#		#}
-{#	</div>#}
-	<!-- end 3rd product row -->
-
+    </div>
+</div>
 {% endblock %}
 

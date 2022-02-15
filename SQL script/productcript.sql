@@ -34,4 +34,4 @@ insert into Products(name,num_of_pcs,price,image_src,is_birthday_cake,is_gluten_
 insert into Products(name,num_of_pcs,price,image_src,is_birthday_cake,is_gluten_free,is_top_seller,is_vegan)
  values ('Raspberries Cheese Cake4','4','15','/static/img/products/cheesecake2.jpg','1','1','1','1');
 
-# truncate  table products;
+truncate  table products;

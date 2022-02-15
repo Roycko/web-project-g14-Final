@@ -44,12 +44,12 @@ def insert_user_func():
             flash('signup success :)')
             return redirect('/home')
 
-@signup.route('/login',methods=["GET"])
+@signup.route('/login',methods=["POST"])
 def login_func():  # put application's code here
-    if request.method == 'GET':
+    if request.method == 'POST':
         # no with the args in the 'post'(get-> args, post->form)
-        user_name=request.form.get('user_name')
-        password = request.form.get('pass')
+        user_name=request.form['user_name']
+        password = request.form['pass']
         # this is the global veriable
         query = "select * from Users where user_name='%s' and password='%s' ;" % (user_name,password)
         users=dbManager.fetch(query)

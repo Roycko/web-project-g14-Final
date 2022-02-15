@@ -3,7 +3,7 @@
 {% block title %} {{ title }}  {% endblock %}
 {% block js %}
     {{ super() }}
-
+    <script src="{{url_for('.static', filename='js/shipping_type.js')}}"></script>
 {% endblock %}
 {% block css %}
     {{ super() }}
@@ -35,7 +35,7 @@
 					<div class="formContainer">
                         {% if finalPrice %}
                             <div class="orangeTitle">Thank you for buying our delicious products!</div>
-                            <div><h2>Total amount: {{ finalPrice }} ILS </h2></div>
+                            <div><h2>Total amount: {{ finalPrice }} $ </h2></div>
                             <p>Which shipping method do you prefer?</p>
                             <form class="myFormClass"  action="/saveOrder" method="post">
                                 <div class="formRow">

@@ -1,7 +1,7 @@
 from utilities.db.db_manager import dbManager
 from utilities.entities.user import User
 from utilities.entities.product import Product
-from flask import session
+from flask import session,flash
 
 def get_all_users():
     query = "select * from Users"
@@ -161,7 +161,6 @@ def savePaymentToDB(user_id, cart_id, shippingMethod, address, totalPrice, order
     return affected_rows ==1
 
 def cartForUser():
-    #session['user_id'] = 1
     if session['user_id'] is not None:
         if not hasActiveCart():
             createCart()
@@ -183,12 +182,27 @@ def menu_search(is_vegan,is_gluten_free,is_birthday_cake,is_top_seller,all):
     return products
 
 ## ------------- Events ---------------- ##
-def saveExistingEventToDB(event_type, event_name, event_date, Amount, fname, Lname, email, Phone, event_res_dt, event_status):
-    query = f"insert into web_project_g14.existing_event_ziv (event_type, event_name, event_date, Amount, fname, Lname, email, Phone, event_res_dt, event_status) values ('{event_type}', '{event_name}','{event_date}', '{Amount}', '{fname}', '{Lname}', '{email}', '{Phone}', '{event_res_dt}', '{event_status}')"
-    affected_rows = dbManager.commit(query)
-    return affected_rows ==1
+def checkForCapacity(event_id):
+    query_capacity = f"select max_occupancy from events where event_id = {event_id}"
+    max_capacity = dbManager.fetch(query_capacity)[0][0]
+    user_query = f"select * from users_in_events where event_id={event_id} and user_id={session['user_id']}"
+    if len(dbManager.fetch(user_query))==1:
+        flash('Already Booked!')
+        return False
+    query = f"select count(distinct user_id,event_id) as 'amount' from users_in_events where event_id = {event_id}"
+    cur_capacity = dbManager.fetch(query)[0][0]
+    if cur_capacity >= max_capacity:
+        flash("Event is Full")
+        return False
+    else:
+        flash("Event Booked!")
+        return True
+    # print(max_capacity)
+    # print(cur_capacity)
 
-def savePrivteEventToDB(p_event_type, p_event_name, Food_prefernces, p_event_date, PAmount, Pfname, PLname, Pemail, PPhone, Address, p_event_res_dt, p_event_status):
-    query = f"insert into web_project_g14.private_event (p_event_type, p_event_name, Food_prefernces, p_event_date, PAmount, Pfname, PLname, Pemail, PPhone, Address, p_event_res_dt, p_event_status) values ('{p_event_type}', '{p_event_name}','{Food_prefernces}', '{p_event_date}', '{PAmount}', '{Pfname}', '{PLname}', '{Pemail}', '{PPhone}', '{Address}', '{p_event_res_dt}', '{p_event_status}')"
-    affected_rows = dbManager.commit(query)
-    return affected_rows ==1
+def bookEventToDB(event_id, user_id):
+    if checkForCapacity(event_id):
+        query = f"insert into users_in_events (event_id, user_id) VALUES ({event_id},{user_id})"
+        exec = dbManager.commit(query)
+        return exec == 1
+    return True

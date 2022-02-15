@@ -27,17 +27,10 @@ app.register_blueprint(cart)
 from pages.contact_us.contact_us import contact_us
 app.register_blueprint(contact_us)
 
-## Edit Events
-from pages.edit_events.edit_events import edit_events
-app.register_blueprint(edit_events)
-
 ## Events
 from pages.events.events import events
 app.register_blueprint(events)
 
-## Events Cart
-from pages.events_cart.events_cart import events_cart
-app.register_blueprint(events_cart)
 
 ## Events Cart
 from pages.payment.payment import payment

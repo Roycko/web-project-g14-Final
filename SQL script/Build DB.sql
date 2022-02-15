@@ -50,38 +50,23 @@ shipping_method VARCHAR(20),
 address VARCHAR(20),
 total_price float,
 reservation_dt datetime,
-order_status VARCHAR(20),
-constraint fk_carts FOREIGN KEY (user_id,cart_id) references Carts(user_id,cart_id)-- when click on payment from cart save here the cart (new raw in table with the cart price) , and when finish the order to update the status on the cart 
+constraint fk_carts FOREIGN KEY (user_id,cart_id) references Carts(user_id,cart_id)-- when click on payment from cart save here the cart (new raw in table with the cart price) , and when finish the order to update the status on the cart
 );
 
 CREATE TABLE web_project_g14.Events (
 event_id int auto_increment primary key ,
 is_personal bool,
 event_type varchar(20),
-event_name varchar(20),
+event_name varchar(100),
 status varchar(20),-- left, canceled, full booked, have place,personal 
 event_dt datetime,
 place varchar(20),
-age_range varchar(20),
 image_src varchar(60),
-description varchar(400)
-);
-
-CREATE TABLE web_project_g14.Personal_event (
-event_id int primary key  ,
+short_description varchar(400),
+long_description varchar(1000),
 Food_type varchar(20),
-amount int,
-first_name varchar(20),
-last_name varchar(20),
-email varchar(30),
-phone varchar(20),
-constraint fk_events FOREIGN KEY (event_id) references Events(event_id)
-);
-
-CREATE TABLE web_project_g14.existing_event (
-event_id int primary key  ,
 max_occupancy int,
-constraint fk_events_existing FOREIGN KEY (event_id) references Events(event_id)
+amount int
 );
 
 CREATE TABLE web_project_g14.contact_us (
@@ -97,38 +82,5 @@ event_id int,
 user_id int,
 constraint fk_users_event FOREIGN KEY (user_id) references Users(user_id),
 constraint fk_users_event_2 FOREIGN KEY (event_id) references Events(event_id),
-constraint pk_Carts primary key (event_id,user_id)
-);
-
-drop table web_project_g14.existing_event_ziv;
-drop table web_project_g14.private_event;
-
-CREATE TABLE web_project_g14.existing_event_ziv (
-#event_id int auto_increment primary key,
-event_type VARCHAR(20),
-event_name VARCHAR(20),
-event_date date,
-Amount VARCHAR(20),
-fname VARCHAR(20),
-Lname VARCHAR(20),
-email VARCHAR(20),
-Phone VARCHAR(20),
-event_res_dt datetime,
-event_status VARCHAR(20)
-);
-
-CREATE TABLE web_project_g14.private_event (
-#event_id int auto_increment primary key,
-p_event_type VARCHAR(20),
-p_event_name VARCHAR(50),
-Food_prefernces VARCHAR(20),
-p_event_date date,
-PAmount VARCHAR(20),
-Pfname VARCHAR(20),
-PLname VARCHAR(20),
-Pemail VARCHAR(20),
-PPhone VARCHAR(20),
-Address VARCHAR(50),
-p_event_res_dt datetime,
-p_event_status VARCHAR(20)
+constraint pk_userInEvents primary key (event_id,user_id)
 );

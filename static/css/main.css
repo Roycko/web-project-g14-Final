@@ -854,18 +854,6 @@ input[type="submit"] {
 # Events Styles
 
 ----------------------------------------------------------------------------- */
-.event-bg-1 {
-  background-image: url(/pages/home/static/img/Chocolate1.jpg);
-  background-position: center;
-}
-
-.event-bg-2 {
-  background-image: url(/pages/home/static/img/Event1.jpg);
-}
-
-.event-bg-3 {
-  background-image: url(/pages/home/static/img/Waffle.jpg);
-}
 
 .event-bg {
   height: 200px;

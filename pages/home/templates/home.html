@@ -79,47 +79,20 @@
 					</div>
 				</div>
 			</div>
-
-			<div class="row">
-				<div class="col-lg-4 ">
-					<div class="eventCard">
-						<div class="event-bg event-bg-1">
-                        </div>
-						<div class="event-text-box">
-							<h3><a href="">You Won't Be Able To Take Your Eyes Off</a></h3>
-							<p class="excerpt">The chocolate workshop is a great activity for kids and adults, and is suitable for all ages.</p>
-							<a href="/events" class="read-more-btn">read more <i class="fas fa-angle-right"></i></a>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4 ">
-					<div class="eventCard">
-						<div class="event-bg event-bg-2"></div>
-						<div class="event-text-box">
-							<h3><a href="">Private Events From Last Month</a></h3>
-							<p class="excerpt">We're bringing the bakery to you. you can get your cakes and chocolates where ever you want.</p>
-							<a href="/events" class="read-more-btn">read more <i class="fas fa-angle-right"></i></a>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4 ">
-					<div class="eventCard">
-						<div class="event-bg event-bg-3"></div>
-						<div class="event-text-box">
-							<h3><a href="">Fill the Waffle Events</a><br><br></h3>
-							<p class="excerpt">Our classic workshop runs almost every day in the year! It lasts about 90 minutes.</p>
-							<a href="/events" class="read-more-btn">read more <i class="fas fa-angle-right"></i></a>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-lg-5 text-center">
-					<a href="/events" class="boxed-btn">More Events</a>
-				</div>
-			</div>
-		</div>
-	</div>
+            <div class="row">
+            {% for event in events %}
+				<div class="col-lg-4">
+                    <div class="eventCard">
+                        <div class="event-bg" style="background-image:url('{{ event.image_src }}') "></div>
+                            <div class="event-text-box">
+                                <h3>{{ event.event_name }}</h3>
+							    <p class="excerpt">{{ event.short_description}}</p>
+							    <a href="/events" class="read-more-btn">read more <i class="fas fa-angle-right"></i></a>
+                            </div>
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
 	<!-- end of events -->
 
 {% endblock %}

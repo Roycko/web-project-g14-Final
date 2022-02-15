@@ -5,7 +5,7 @@ from flask import flash
 
 
 # payment blueprint definition
-payment = Blueprint('payment', __name__, static_folder='payment', static_url_path='/static', template_folder='templates')
+payment = Blueprint('payment', __name__, static_folder='static', static_url_path='/pages/payment/static', template_folder='templates')
 title = 'Matamim | Complete your purchase'
 
 # Routes
@@ -26,8 +26,7 @@ def saveOrder_func():
     address = request.form['address']
     totalPrice = getCartPrice()
     reservation_dt = datetime.datetime.now().isoformat(timespec='seconds')#.timestamp()
-    order_status = "In process"
-    savePaymentToDB(user_id, cart_id, shippingMethod, address, totalPrice, order_status, reservation_dt)
+    savePaymentToDB(user_id, cart_id, shippingMethod, address, totalPrice, reservation_dt)
     flash('Cart Paid')
     return redirect('/home')
 
