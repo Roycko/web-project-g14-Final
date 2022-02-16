@@ -24,6 +24,24 @@
 		</div>
 	</div>
 	<!-- end grey area -->
+{% if myEvents %}
+    <div class="text-center">
+        <h2>My Upcoming Events</h2>
+            <div class="row">
+            {% for event in myEvents %}
+				<div class="col-lg-4">
+                    <div class="eventCard">
+                        <div class="event-bg" style="background-image:url('{{ event.image_src }}') "></div>
+                            <div class="event-text-box">
+                                <h3>{{ event.event_name }}</h3>
+                                <h5>Soon: {{ event.event_dt }}</h5>
+                            </div>
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+    </div>
+{% endif %}
 <div class="text-center" >
     {% if user %}
         <h2>Edit Profile</h2>

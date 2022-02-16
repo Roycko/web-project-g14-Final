@@ -9,8 +9,9 @@ title ='Matamim | Profile'
 # Routes
 @profile.route('/profile')
 def index():
+    events = general.getMyEvents()
     user = general.getUser(session['email_address'])
-    return render_template('profile.html',title = title, user = user)
+    return render_template('profile.html',title = title, user = user, myEvents=events)
 
 @profile.route('/update_user', methods =['post'])
 def updateUser():

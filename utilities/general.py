@@ -206,3 +206,9 @@ def bookEventToDB(event_id, user_id):
         exec = dbManager.commit(query)
         return exec == 1
     return True
+
+def getMyEvents():
+    query = f"select e.*, ue.event_id as e_id, ue.user_id from events e left join users_in_events ue on e.event_id=ue.event_id where ue.user_id = {session['user_id']} and e.event_dt > NOW()"
+    myEvents = dbManager.fetch(query)
+    return myEvents
+
