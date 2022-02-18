@@ -13,7 +13,7 @@ def home_func():
     cartForUser()
     query_products = "Select * from Products limit 3"
     main_products = dbManager.fetch(query_products)
-    query_events = "Select * from events limit 3"
+    query_events = "Select * from events where is_personal=0 limit 3"
     main_events = dbManager.fetch(query_events)
     return render_template('home.html',title = title, products = main_products, events = main_events)
 

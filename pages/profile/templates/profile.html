@@ -6,7 +6,6 @@
 {% endblock %}
 {% block css %}
     {{ super() }}
-        <link  href="{{url_for('profile.static', filename='css/contactUs.css')}}" rel="stylesheet">
 {% endblock %}
 {% block content %}
 <!-- grey area -->
@@ -24,24 +23,47 @@
 		</div>
 	</div>
 	<!-- end grey area -->
-{% if myEvents %}
     <div class="text-center">
-        <h2>My Upcoming Events</h2>
+        <h2>My Upcoming Events</h2><br>
+        {% if myEvents|length >0 %}
             <div class="row">
             {% for event in myEvents %}
-				<div class="col-lg-4">
+                <div class="col-lg-4">
                     <div class="eventCard">
                         <div class="event-bg" style="background-image:url('{{ event.image_src }}') "></div>
                             <div class="event-text-box">
                                 <h3>{{ event.event_name }}</h3>
                                 <h5>Soon: {{ event.event_dt }}</h5>
+                                <form action="/deleteEvent" method="post"><button type="submit" class="transparent" name="{{ event.event_id }}"><i class="fas fa-trash-alt fa-lg" ></i></button></form>
                             </div>
                     </div>
                 </div>
             {% endfor %}
             </div>
     </div>
+{% else %}
+    <h4>Book your first <span class="orange-text"><a href="/events">EVENT</a></span></h4><br><hr>
 {% endif %}
+<div class="text-center">
+<h2>My Personal Upcoming Events</h2><br>
+{% if personalEvents|length >0 %}
+        <div class="row">
+            {% for event in personalEvents %}
+                <div class="col-lg-5">
+                    <div class="event-text-box">
+                        <h3 class="orange-text">{{ event.event_name }}</h3>
+                        <h5>Soon: {{ event.event_dt }}</h5>
+                        <h5>Amount: {{ event.amount }}</h5>
+                        <h5>Food Type: {{ event.Food_type }}</h5>
+                        <form action="/deleteEvent" method="post"><button type="submit" class="transparent" name="{{ event.event_id }}"><i class="fas fa-trash-alt fa-lg" ></i></button></form>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% else %}
+    <h4>Create your new personal <span class="orange-text"><a href="/events">EVENT</a></span></h4><br>
+{% endif %}<hr>
 <div class="text-center" >
     {% if user %}
         <h2>Edit Profile</h2>

@@ -208,7 +208,28 @@ def bookEventToDB(event_id, user_id):
     return True
 
 def getMyEvents():
-    query = f"select e.*, ue.event_id as e_id, ue.user_id from events e left join users_in_events ue on e.event_id=ue.event_id where ue.user_id = {session['user_id']} and e.event_dt > NOW()"
+    query = f"select e.*, ue.event_id as e_id, ue.user_id from events e left join users_in_events ue on e.event_id=ue.event_id where ue.user_id = {session['user_id']} and e.event_dt > NOW() and is_personal = 0"
     myEvents = dbManager.fetch(query)
     return myEvents
 
+def getMyPersonalEvents():
+    query = f"select e.*, ue.event_id as e_id, ue.user_id from events e left join users_in_events ue on e.event_id=ue.event_id where ue.user_id = {session['user_id']} and e.event_dt > NOW() and is_personal = 1"
+    myEvents = dbManager.fetch(query)
+    return myEvents
+
+def addPersonalEvent(is_personal,event_name,status,event_date,place,food_type,amount):
+    query = f"insert into events (is_personal, event_name, status, event_dt, place, Food_type, amount) values ({is_personal},'{event_name}','{status}','{event_date}','{place}','{food_type}',{amount})"
+    newEvent = dbManager.commit(query)
+    eventIDQuery = f"select max(event_id) as 'max' from events"
+    getEventID = dbManager.fetch(eventIDQuery)[0][0]
+    myEventQuery = f"insert into users_in_events (event_id, user_id) values ({getEventID},{session['user_id']})"
+    dbManager.commit(myEventQuery)
+    print(getEventID)
+    return newEvent ==1
+
+def deleteMyEvent(eventID):
+    query = f"delete from users_in_events where user_id={session['user_id']} and event_id= {eventID}"
+    returned_rows = dbManager.commit(query)
+    query2= f"delete from events where event_id={eventID} and is_personal = 1"
+    dbManager.commit(query2)
+    return returned_rows==1

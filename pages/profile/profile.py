@@ -10,8 +10,9 @@ title ='Matamim | Profile'
 @profile.route('/profile')
 def index():
     events = general.getMyEvents()
+    personalEvents = general.getMyPersonalEvents()
     user = general.getUser(session['email_address'])
-    return render_template('profile.html',title = title, user = user, myEvents=events)
+    return render_template('profile.html',title = title, user = user, myEvents=events, personalEvents = personalEvents)
 
 @profile.route('/update_user', methods =['post'])
 def updateUser():
@@ -20,4 +21,11 @@ def updateUser():
     lastName = request.form['LastName']
     password = request.form['Password']
     general.update_user(session['email_address'],password, firstName, lastName)
+    return redirect(url_for('profile.index'))
+
+@profile.route('/deleteEvent', methods = ["post"])
+def deleteEvent_func():
+    for k,v in request.form.items():
+        eventID=k
+    general.deleteMyEvent(eventID)
     return redirect(url_for('profile.index'))

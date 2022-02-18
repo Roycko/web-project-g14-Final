@@ -697,6 +697,17 @@ a.bordered-btn {
   background-color: #F28123;
   color: #051922;
 }
+.transparent{
+  background-color: transparent;
+  border-color: transparent;
+}
+.transparent i{
+  color: grey;
+}
+
+.transparent i:hover{
+  color: #F28123;
+}
 
 input[type="submit"] {
   transition: 0.3s;
