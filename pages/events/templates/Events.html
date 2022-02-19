@@ -20,7 +20,11 @@
 							<p class="subtitle">BISS OF BLISS</p>
 							<h1>Events</h1>
 							<div class="grey-btns">
-								<a href="/profile" class="boxed-btn">My Events</a>
+								{% if session.username %}
+								    <a href="/profile" class="boxed-btn">My Events</a>
+								{% else %}
+                                  				  <a onclick="open_login();return false;" href="/profile" class="boxed-btn">My Events</a>
+                               					 {% endif %}
 							</div>
 						</div>
 					</div>
