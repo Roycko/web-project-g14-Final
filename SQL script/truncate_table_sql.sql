@@ -1,3 +1,0 @@
-SET FOREIGN_KEY_CHECKS = 0;
-TRUNCATE table web_project_g14.Users;
-SET FOREIGN_KEY_CHECKS = 1;
