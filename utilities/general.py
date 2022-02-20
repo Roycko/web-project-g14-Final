@@ -154,8 +154,8 @@ def closeCart(cart_id):
     affected_rows = dbManager.commit(query)
     return affected_rows == 1
 
-def savePaymentToDB(user_id, cart_id, shippingMethod, address, totalPrice, order_status, reservation_dt):
-    query = f"insert into orders (user_id, cart_id, shipping_method, address, total_price, order_status, reservation_dt) values ('{user_id}','{cart_id}', '{shippingMethod}','{address}', '{totalPrice}', '{order_status}', '{reservation_dt}')"
+def savePaymentToDB(user_id, cart_id, shippingMethod, address, totalPrice, reservation_dt):
+    query = f"insert into orders (user_id, cart_id, shipping_method, address, total_price, reservation_dt) values ('{user_id}','{cart_id}', '{shippingMethod}','{address}', '{totalPrice}', '{reservation_dt}')"
     closeCart(cart_id)
     affected_rows = dbManager.commit(query)
     return affected_rows ==1
