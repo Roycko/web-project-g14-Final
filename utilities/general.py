@@ -25,13 +25,6 @@ def get_all_products_as_table():
     query = "select * from Products"
     res = dbManager.fetch(query)
     return res
-# def hasAcart():
-#     query = f"select * from Carts where user_id = {session['user_id']} and status = 'active'"
-#     cart = dbManager.fetch(query)
-#     if len(cart) == 0:
-#         return False
-#     else:
-#         return True
 
 
 ## ------------- CARTS ---------------- ##
@@ -81,15 +74,12 @@ def removeProducts(products,cart):
     quary = f"select product_id from product_in_cart where user_id = {session['user_id']} and cart_id = {cart}"
     notIn = dbManager.fetch(quary)
     products = list(products)
-    # res_list =[]
-    # print(notIn)
     row = [str(item[0]) for item in notIn]
     print(row)
     print(products)
     removed = list(set(row) - set(products))
     print(removed)
     print(tuple(removed))
-    # print(len(tuple(removed)))
     if len(removed) == 0:
         return True
     if len(removed) == 1:
